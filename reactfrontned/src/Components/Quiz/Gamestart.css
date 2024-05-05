@@ -1,0 +1,6 @@
+body { /* Adjust the selector if you want the background only on a specific div */
+    background-image: url('/your-image-name.jpg'); /* Replace with your image path */
+    background-repeat: no-repeat;  /* Prevents the image from repeating */
+    background-size: cover;        /* Makes the image cover the whole area */
+    
+  }

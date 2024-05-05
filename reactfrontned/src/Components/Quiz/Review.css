@@ -1,0 +1,103 @@
+.container_2{
+    width: 40%;
+    margin:auto;
+    margin-top:10px;
+    background:white;
+    color:#262626;
+    display:flex;
+    flex-direction:column;
+    gap: 2px;
+    border-radius: 45px;
+    padding:30px 40px;
+}
+.container_2 hr{
+    height: 2px;
+    border: none;
+    background: #707070;
+}
+.container_2 h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align:center;
+}
+.container_2 h2{
+    font-size: 20px;
+    font-weight: 500;
+}
+.container_2 h3{
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+}
+.container_2 ul li{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 15px;
+    border: 1px solid #686868;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.container_2 button{
+    margin: auto;
+    width: 250px;
+    height: 50px;
+    background: #553f9a;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.container_2 button:hover {
+    background: #3f2e6e;
+  }
+.container_2 button:active {
+    background: #2e1e4e;
+}
+.container_2 .index{
+    margin: auto;
+    font-size: 18px;
+}
+.container_2 .correct{
+    background: #dffff2 ;
+    border-color: #00d397;
+}
+.container_2 .wrong{
+    background: #FFEBEB ;
+    border-color: #FF4A4A;
+}
+
+.review-container {
+    max-height: 500px; /* Set the maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+.feedback{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #cdcaca;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+body {
+    height: 100vh;
+    overflow: auto;
+    background-image: url('C:\Users\user\Desktop\Unity\react-skyline\src\assets\lightscale.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the image */
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  

@@ -1,0 +1,15 @@
+body {
+  height: 100vh;
+  overflow: auto;
+  background-image: url('.\assets\lightscale.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center; /* Center the image */
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
