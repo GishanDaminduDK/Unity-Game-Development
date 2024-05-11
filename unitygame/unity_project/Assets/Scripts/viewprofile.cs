@@ -29,6 +29,12 @@ public class viewprofile : MonoBehaviour
         StartCoroutine(GetProfile());
        
     }
+    public void gameQuickStart() {
+        SceneManager.LoadScene("GameStartView");
+
+
+
+    }
     public IEnumerator GetProfile()
     {
         using (UnityWebRequest requestnew = UnityWebRequest.Get(profileEndpoint))

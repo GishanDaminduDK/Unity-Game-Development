@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,9 @@ public class EnvironmentController : MonoBehaviour
 
     public static string jwtToken = "nulljwtToken";  // To pass jwt token to forward scene
     public string jwt = "";
+    public float power_changes_value;
+    public List<float> power_consumption_values_array = new List<float>(); // Initialize the list to store power consumption values
+
 
     public IEnumerator PostRequest()
     {
@@ -87,14 +91,32 @@ public class EnvironmentController : MonoBehaviour
 
                     // Log the current power consumption
                     Debug.Log("Current Power Consumption is: " + response.currentConsumption);
+
+                    // Add the current consumption value to the array
+                    if (power_consumption_values_array.Count == 2)
+                    {
+                        // If the list already has two elements, remove the first (oldest)
+                        power_consumption_values_array.RemoveAt(0);
+                    }
+                    power_consumption_values_array.Add(response.currentConsumption);
+
+                    // Calculate the change in power consumption if two values are present
+                    if (power_consumption_values_array.Count == 2)
+                    {
+                        power_changes_value = power_consumption_values_array[1] - power_consumption_values_array[0];
+                        Debug.Log("Change in Power Consumption: " + power_changes_value);
+                    }
+                    else
+                    {
+                        Debug.Log("Waiting for next power consumption value.");
+                    }
                 }
                 catch (System.Exception ex)
                 {
                     Debug.LogError("JSON Parse Error: " + ex.Message);
                 }
             }
-            else if (requestnew.result == UnityWebRequest.Result.ConnectionError ||
-                     requestnew.result == UnityWebRequest.Result.ProtocolError)
+            else if (requestnew.result == UnityWebRequest.Result.ConnectionError || requestnew.result == UnityWebRequest.Result.ProtocolError)
             {
                 // Log error
                 Debug.LogError("Error: " + requestnew.error);
