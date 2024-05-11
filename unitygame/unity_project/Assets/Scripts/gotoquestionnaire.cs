@@ -108,7 +108,7 @@ public class gotoquestionnaire : MonoBehaviour
 
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
 
-        UnityWebRequest request = UnityWebRequest.PostWwwForm("http://localhost:8081/api/v1/player/log", jsonData);
+        UnityWebRequest request = UnityWebRequest.PostWwwForm("http://localhost:8090/api/v1/player/log", jsonData);
         request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
@@ -150,7 +150,7 @@ public class gotoquestionnaire : MonoBehaviour
 
     void StartCheckingQAdone(string id_value_string, string jwt_newone)
     {
-        string url = "http://localhost:8081/api/v1/player/answer/" + id_value_string;
+        string url = "http://localhost:8090/api/v1/player/answer/" + id_value_string;
         // Assuming you want to send the request with an access token
         string accessToken = "your_access_token_here"; // Replace this with your actual access token
         StartCoroutine(SendRequest(url, jwt_newone));
