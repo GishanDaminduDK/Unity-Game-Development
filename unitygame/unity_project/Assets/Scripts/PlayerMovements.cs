@@ -36,10 +36,12 @@ public class PlayerMovements : MonoBehaviour
         GameData data = new GameData
         {
             playerPositionX = transform.position.x,
-            playerPositionY = transform.position.y
+            playerPositionY = transform.position.y,
+            coinscount = itemCollector.coins
         };
 
         string json = JsonUtility.ToJson(data);
+        Debug.Log("Saving Data: " + json); // Check what is being saved
         PlayerPrefs.SetString("PlayerPosition", json);
         PlayerPrefs.Save();
     }
@@ -50,8 +52,10 @@ public class PlayerMovements : MonoBehaviour
         {
             string json = PlayerPrefs.GetString("PlayerPosition");
             GameData data = JsonUtility.FromJson<GameData>(json);
+            Debug.Log("Loaded Data: " + json); // Check what is being loaded
             Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
             rb.position = position;
+            itemCollector.coins = data.coinscount; // Make sure to restore the coins count
         }
     }
 
