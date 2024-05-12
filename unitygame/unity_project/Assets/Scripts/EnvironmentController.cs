@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class EnvironmentController : MonoBehaviour
 {
     // Reference to the GameObject tree_40
-    GameObject tree_40;
+    private GameObject[] trees = new GameObject[80]; // Array to hold 80 tree GameObjects
+    private SpriteRenderer[] treeRenderers = new SpriteRenderer[80]; // Array to hold SpriteRenderers for efficiency
+
     private string apiKey = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGIzOjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhOQ";
     private string loginEndpoint = "http://20.15.114.131:8080/api/login";
     private string profileEndpoint = "http://20.15.114.131:8080/api/power-consumption/current/view";
@@ -142,46 +144,41 @@ public class EnvironmentController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Finding the GameObject tree_40
-        tree_40 = GameObject.Find("tree_40");
+        for (int i = 0; i < trees.Length; i++)
+        {
+            trees[i] = GameObject.Find("tree_" + (i + 1));
+            if (trees[i] != null)
+            {
+                treeRenderers[i] = trees[i].GetComponent<SpriteRenderer>();
+                if (treeRenderers[i] == null)
+                {
+                    Debug.LogError("Missing SpriteRenderer on " + trees[i].name);
+                }
+            }
+            else
+            {
+                Debug.LogError("Tree GameObject not found: tree_" + (i + 1));
+            }
+        }
         StartCoroutine(PostRequest());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Update the timer every frame
         timeSinceLastRequest += Time.deltaTime;
 
-        // Check if 10 seconds have passed
         if (timeSinceLastRequest >= requestInterval)
         {
-            // Reset the timer
             timeSinceLastRequest = 0f;
-
-            // Start the GET request coroutine
             StartCoroutine(getCurrentPowerConsumption());
         }
 
-        // Getting the SpriteRenderer component attached to this GameObject
-        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-
-        // Changing the color of tree_40 to red
-        if (tree_40 != null)
+        foreach (var treeRenderer in treeRenderers)
         {
-            SpriteRenderer treeRenderer = tree_40.GetComponent<SpriteRenderer>();
             if (treeRenderer != null)
             {
                 treeRenderer.color = Color.red;
             }
-            else
-            {
-                Debug.LogError("tree_40 doesn't have a SpriteRenderer component!");
-            }
-        }
-        else
-        {
-            Debug.LogError("GameObject tree_40 not found!");
         }
     }
 
