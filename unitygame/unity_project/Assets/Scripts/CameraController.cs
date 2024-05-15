@@ -9,11 +9,11 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Knight");
         if (player != null)
             target = player.transform;
         else
-            Debug.LogError("Player not found. Make sure the player has the tag 'Player'.");
+            Debug.LogError("Player not found. Make sure the player has the tag 'Knight'.");
     }
 
     void FixedUpdate()
