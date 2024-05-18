@@ -1,86 +1,41 @@
-/*
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour
 {
-    private RectTransform rectTransform;
-
-    
-    void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-    }
+    private bool isDragging = false;
+    private Vector3 offset;
+    private CameraController cameraController;
+    [SerializeField] private float dragSpeed = 2f;
 
     void Start()
     {
-
+        cameraController = Camera.main.GetComponent<CameraController>();
     }
 
-    
-    public void OnBeginDrag(PointerEventData eventData)
+    void Update()
     {
-        
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        rectTransform.anchoredPosition += eventData.delta;
-        
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-
-    }
-}
-*/
-
-using UnityEngine;
-using UnityEngine.EventSystems;
-
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IEndDragHandler, IDragHandler
-{
-    private RectTransform rectTransform;
-    private Canvas canvas;
-
-    private void Awake()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        // Convert screen space to world space
-        Vector3 newPos;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out newPos);
-
-        // Set the position of the object directly, without considering canvas boundaries
-        rectTransform.position = newPos;
+        if (isDragging)
+        {
+            // target position based on mouse position
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            targetPosition.z = transform.position.z;
+            transform.position = targetPosition;
+        }
     }
 
 
-    public void OnEndDrag(PointerEventData eventData)
+    void OnMouseDown()
     {
-
+        isDragging = true;
+        offset = (transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        // Notify the camera controller dragging has started
+        cameraController.StartDragging(transform);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    void OnMouseUp()
     {
-        // Perform actions when dragging stops
+        isDragging = false;
+        // Notify the camera controller dragging has stopped
+        cameraController.StopDragging();
     }
 }
