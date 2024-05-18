@@ -5,14 +5,18 @@ using UnityEngine.UI;
 
 public class itemCollector : MonoBehaviour
 {
-    public static int coins = 0;
+    
     [SerializeField] private Text coinsCount;
+    int coin = 0;
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        coin = int.Parse(coinsCount.text);
         if (collision.gameObject.CompareTag("coins")) {
             Destroy(collision.gameObject);
-            coins++;
-            coinsCount.text = ""  + coins;
+            coin++;
+            coinsCount.text = ""  + coin;
         }
     }
 }
