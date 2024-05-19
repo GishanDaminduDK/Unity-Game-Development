@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -8,9 +8,7 @@ using UnityEngine.SceneManagement;
 public class EnvironmentController : MonoBehaviour
 {
     // Reference to the GameObject tree_40
-    private GameObject[] trees = new GameObject[80]; // Array to hold 80 tree GameObjects
-    private SpriteRenderer[] treeRenderers = new SpriteRenderer[80]; // Array to hold SpriteRenderers for efficiency
-
+    GameObject tree_40;
     private string apiKey = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGIzOjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhOQ";
     private string loginEndpoint = "http://20.15.114.131:8080/api/login";
     private string profileEndpoint = "http://20.15.114.131:8080/api/power-consumption/current/view";
@@ -20,9 +18,6 @@ public class EnvironmentController : MonoBehaviour
 
     public static string jwtToken = "nulljwtToken";  // To pass jwt token to forward scene
     public string jwt = "";
-    public float power_changes_value;
-    public List<float> power_consumption_values_array = new List<float>(); // Initialize the list to store power consumption values
-
 
     public IEnumerator PostRequest()
     {
@@ -93,32 +88,14 @@ public class EnvironmentController : MonoBehaviour
 
                     // Log the current power consumption
                     Debug.Log("Current Power Consumption is: " + response.currentConsumption);
-
-                    // Add the current consumption value to the array
-                    if (power_consumption_values_array.Count == 2)
-                    {
-                        // If the list already has two elements, remove the first (oldest)
-                        power_consumption_values_array.RemoveAt(0);
-                    }
-                    power_consumption_values_array.Add(response.currentConsumption);
-
-                    // Calculate the change in power consumption if two values are present
-                    if (power_consumption_values_array.Count == 2)
-                    {
-                        power_changes_value = power_consumption_values_array[1] - power_consumption_values_array[0];
-                        Debug.Log("Change in Power Consumption: " + power_changes_value);
-                    }
-                    else
-                    {
-                        Debug.Log("Waiting for next power consumption value.");
-                    }
                 }
                 catch (System.Exception ex)
                 {
                     Debug.LogError("JSON Parse Error: " + ex.Message);
                 }
             }
-            else if (requestnew.result == UnityWebRequest.Result.ConnectionError || requestnew.result == UnityWebRequest.Result.ProtocolError)
+            else if (requestnew.result == UnityWebRequest.Result.ConnectionError ||
+                     requestnew.result == UnityWebRequest.Result.ProtocolError)
             {
                 // Log error
                 Debug.LogError("Error: " + requestnew.error);
@@ -144,41 +121,46 @@ public class EnvironmentController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < trees.Length; i++)
-        {
-            trees[i] = GameObject.Find("tree_" + (i + 1));
-            if (trees[i] != null)
-            {
-                treeRenderers[i] = trees[i].GetComponent<SpriteRenderer>();
-                if (treeRenderers[i] == null)
-                {
-                    Debug.LogError("Missing SpriteRenderer on " + trees[i].name);
-                }
-            }
-            else
-            {
-                Debug.LogError("Tree GameObject not found: tree_" + (i + 1));
-            }
-        }
+        // Finding the GameObject tree_40
+        tree_40 = GameObject.Find("tree_40");
         StartCoroutine(PostRequest());
     }
 
+    // Update is called once per frame
     void Update()
     {
+        // Update the timer every frame
         timeSinceLastRequest += Time.deltaTime;
 
+        // Check if 10 seconds have passed
         if (timeSinceLastRequest >= requestInterval)
         {
+            // Reset the timer
             timeSinceLastRequest = 0f;
+
+            // Start the GET request coroutine
             StartCoroutine(getCurrentPowerConsumption());
         }
 
-        foreach (var treeRenderer in treeRenderers)
+        // Getting the SpriteRenderer component attached to this GameObject
+        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        // Changing the color of tree_40 to red
+        if (tree_40 != null)
         {
+            SpriteRenderer treeRenderer = tree_40.GetComponent<SpriteRenderer>();
             if (treeRenderer != null)
             {
                 treeRenderer.color = Color.red;
             }
+            else
+            {
+                Debug.LogError("tree_40 doesn't have a SpriteRenderer component!");
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject tree_40 not found!");
         }
     }
 

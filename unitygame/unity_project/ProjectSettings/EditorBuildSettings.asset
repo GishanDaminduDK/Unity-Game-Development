@@ -6,24 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/StartScene.unity
-    guid: 4f1bb9b63eb40b44187d628a9052b048
-  - enabled: 0
-    path: Assets/Scenes/StartPage.unity
+    path: Assets/Scenes/GameStartView.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 49e76a7deee34484186469b303f9430f
-  - enabled: 1
-    path: Assets/Scenes/ViewDetails.unity
-    guid: 744fb97bc583b774dbfd4db653228187
-  - enabled: 1
-    path: Assets/Scenes/UpdateDetails.unity
-    guid: e3f96185b2548234da557f08ded2d4fd
-  - enabled: 1
-    path: Assets/Scenes/ErrorPage.unity
-    guid: 01f804c21d2acfd44a5a3a6a2b98c987
-  - enabled: 1
-    path: Assets/Scenes/GameStartView.unity
-    guid: a43dc2c9045917449b75eb62f8e3ea6c
+    path: Assets/Scenes/shop.unity
+    guid: 35d37904b688120428df421018fbb2a4
   m_configObjects: {}
