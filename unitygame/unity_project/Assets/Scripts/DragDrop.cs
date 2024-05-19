@@ -5,7 +5,6 @@ public class DragDrop : MonoBehaviour
     private bool isDragging = false;
     private Vector3 offset;
     private CameraController cameraController;
-    [SerializeField] private float dragSpeed = 2f;
 
     void Start()
     {
