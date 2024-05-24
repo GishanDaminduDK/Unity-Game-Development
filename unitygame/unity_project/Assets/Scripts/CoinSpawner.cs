@@ -19,11 +19,15 @@ public class CoinSpawner : MonoBehaviour
             // Get a random position within the specified range
             Vector3 randomPosition = new Vector3(Random.Range(-10f, 10f), 0, Random.Range(-10f, 10f));
 
+            Vector3 offset = new Vector3(0.1f*i, 0, 0.1f*i);
+
+            Vector3 final = randomPosition + offset;
+
             // Get a random coin prefab from the array
             GameObject randomCoinPrefab = coinPrefabs[Random.Range(0, coinPrefabs.Length)];
 
             // Instantiate the random coin prefab at the random position
-            Instantiate(randomCoinPrefab, randomPosition, Quaternion.identity);
+            Instantiate(randomCoinPrefab, final, Quaternion.identity);
         }
     }
 }
