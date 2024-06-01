@@ -634,7 +634,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 831122649}
+      - m_Target: {fileID: 945242015}
         m_TargetAssemblyTypeName: viewprofile, Assembly-CSharp
         m_MethodName: get_profile_details
         m_Mode: 1

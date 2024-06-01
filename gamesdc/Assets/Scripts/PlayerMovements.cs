@@ -1,7 +1,9 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class PlayerMovements : MonoBehaviour
 {
@@ -12,10 +14,14 @@ public class PlayerMovements : MonoBehaviour
     private bool isPaused = false; // Track whether the game is paused
     public static string dateLastplay;
     public static string timeLastplay;
+   
+    
+  
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         LoadPosition();  // Load the position at the start
+        Debug.Log("The spring token is token is"+CheckinPlayDirectly.playerLoginJWTToken);
     }
 
     private void Update()
@@ -66,6 +72,74 @@ public class PlayerMovements : MonoBehaviour
         Debug.Log("Saving Data: " + json); // Check what is being saved
         PlayerPrefs.SetString("PlayerPosition", json);
         PlayerPrefs.Save();
+        updatePlayerStatus();
+
+
+
+    }
+    public void updatePlayerStatus()
+    {
+        string url = "http://localhost:8081/api/playerstatus/updateStatus/" + CheckinPlayDirectly.playerIDvalue;
+        
+        StartCoroutine(SendPlayerStatusUpdateRequest(url, CheckinPlayDirectly.playerLoginJWTToken));
+    }
+    public IEnumerator SendPlayerStatusUpdateRequest(string url, string jwt_newone)
+    {
+        string id_value = CheckinPlayDirectly.playerIDvalue;
+        int totalCoins_Value = 90;
+        int gemsValue = 10;
+
+        // Define the individual game data variables
+        double playerPosition_X= transform.position.x;
+        double playerPosition_Y = transform.position.y;
+        int coinscount = ItemCollector.coins;
+        string time_json = timeLastplay;
+        string date_json = dateLastplay;
+
+        // Construct game data object using variables
+        var gameData = new
+        {
+            playerPositionX = playerPosition_X,
+            playerPositionY = playerPosition_Y,
+            coinscount = coinscount,
+            time = time_json,
+            date = date_json
+        };
+
+        string jsonGameData = JsonConvert.SerializeObject(gameData);
+
+        // Construct the outer JSON object
+        var outerObject = new
+        {
+            id = id_value,
+            coins = totalCoins_Value,
+            gems = gemsValue,
+            resources = new string[] { jsonGameData }  // Array containing the serialized game data
+        };
+
+        // Serialize the outer object to a JSON string
+        string jsonProfileUpdate = JsonConvert.SerializeObject(outerObject);
+
+        // Convert JSON string to byte array
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonProfileUpdate);
+        using (UnityWebRequest requestForUpdatingStatus = UnityWebRequest.Put(url, data))
+        {
+            requestForUpdatingStatus.SetRequestHeader("Content-Type", "application/json");
+            requestForUpdatingStatus.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
+            yield return requestForUpdatingStatus.SendWebRequest();
+
+            if (requestForUpdatingStatus.result == UnityWebRequest.Result.Success)
+            {
+                if (requestForUpdatingStatus.responseCode == 200)
+                {
+                    Debug.Log("Profile updated successfully.");
+                }
+            }
+            else
+            {
+                Debug.Log("Error updating profile: " + requestForUpdatingStatus.error);
+            }
+        }
     }
 
     private void LoadPosition()

@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements.Experimental;
 
 
 public class CheckinPlayDirectly : MonoBehaviour
@@ -14,6 +15,8 @@ public class CheckinPlayDirectly : MonoBehaviour
     private string jwt_newone;
     private string id_value_string;
     private string profileEndpoint = "http://20.15.114.131:8080/api/user/profile/view";
+    public static string playerLoginJWTToken;
+    public static string playerIDvalue;
 
     public static string firstname_var;
     public static string lastname_var;
@@ -93,7 +96,7 @@ public class CheckinPlayDirectly : MonoBehaviour
             }
         }
     }
-
+     
     IEnumerator SendLoginRequest()
     {
         string username = username_var;
@@ -125,8 +128,10 @@ public class CheckinPlayDirectly : MonoBehaviour
                 string response = request.downloadHandler.text;
                 JObject jsonResponse = JObject.Parse(response);
                 jwt_newone = (string)jsonResponse["token"];
+                playerLoginJWTToken = jwt_newone;
                 int id_value = (int)jsonResponse["id"];
                 id_value_string = id_value.ToString();
+                playerIDvalue = id_value_string;
                 StartCheckingQAdone(id_value_string, jwt_newone);
                 updatePlayerStatus();
             }
@@ -195,26 +200,30 @@ public class CheckinPlayDirectly : MonoBehaviour
         }
     }
 
-
-
     public IEnumerator SendPlayerStatusUpdateRequest(string url, string jwt_newone)
     {
         int id_value = 1;
         int totalCoins_Value = 90;
         int gemsValue = 10;
-        List<int> answersArray = new List<int> { 1, 2, 1, 3, 1, 1, 1, 4, 3, 1 }; // Example data for the answersArray
 
-        // Create an anonymous object for the resources content
-        var resourcesObject = new
+        // Define the individual game data variables
+        double playerPositionX = 12.554312705993653;
+        double playerPositionY = 1.9378679990768433;
+        int coinscount = 12;
+        string time = "9:55 AM";
+        string date = "6/1/2024";
+
+        // Construct game data object using variables
+        var gameData = new
         {
-            id = id_value,
-            answersArray = answersArray,
-            totalCoins = totalCoins_Value,
-            playerStatus = (object)null  // Use (object)null to properly serialize as null
+            playerPositionX = playerPositionX,
+            playerPositionY = playerPositionY,
+            coinscount = coinscount,
+            time = time,
+            date = date
         };
 
-        // Serialize the resources object to JSON string
-        string resourcesJson = JsonConvert.SerializeObject(resourcesObject);
+        string jsonGameData = JsonConvert.SerializeObject(gameData);
 
         // Construct the outer JSON object
         var outerObject = new
@@ -222,32 +231,34 @@ public class CheckinPlayDirectly : MonoBehaviour
             id = id_value,
             coins = totalCoins_Value,
             gems = gemsValue,
-            resources = new string[] { resourcesJson }  // Place the serialized string inside an array
+            resources = new string[] { jsonGameData }  // Array containing the serialized game data
         };
 
-        // Serialize the outer object to JSON string
+        // Serialize the outer object to a JSON string
         string jsonProfileUpdate = JsonConvert.SerializeObject(outerObject);
 
+        // Convert JSON string to byte array
         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonProfileUpdate);
-        using (UnityWebRequest requestforUpdatingStatus = UnityWebRequest.Put(url, data))
+        using (UnityWebRequest requestForUpdatingStatus = UnityWebRequest.Put(url, data))
         {
-            requestforUpdatingStatus.SetRequestHeader("Content-Type", "application/json");
-            requestforUpdatingStatus.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
-            yield return requestforUpdatingStatus.SendWebRequest();
+            requestForUpdatingStatus.SetRequestHeader("Content-Type", "application/json");
+            requestForUpdatingStatus.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
+            yield return requestForUpdatingStatus.SendWebRequest();
 
-            if (requestforUpdatingStatus.result == UnityWebRequest.Result.Success)
+            if (requestForUpdatingStatus.result == UnityWebRequest.Result.Success)
             {
-                if (requestforUpdatingStatus.responseCode == 200)
+                if (requestForUpdatingStatus.responseCode == 200)
                 {
                     Debug.Log("Profile updated successfully.");
                 }
             }
             else
             {
-                Debug.Log("Error updating profile: " + requestforUpdatingStatus.error);
+                Debug.Log("Error updating profile: " + requestForUpdatingStatus.error);
             }
         }
     }
+
 
 
     public void ReviewCheck()
