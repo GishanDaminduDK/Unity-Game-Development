@@ -96,7 +96,7 @@ public class CheckinPlayDirectly : MonoBehaviour
             }
         }
     }
-     
+
     IEnumerator SendLoginRequest()
     {
         string username = username_var;
@@ -143,7 +143,7 @@ public class CheckinPlayDirectly : MonoBehaviour
         string url = "http://localhost:8081/api/v1/player/answer/" + id_value_string;
         StartCoroutine(SendRequest(url, jwt_newone));
     }
- 
+
 
     IEnumerator SendRequest(string url, string jwt_newone)
     {
@@ -268,5 +268,5 @@ public class CheckinPlayDirectly : MonoBehaviour
         Debug.Log(all_fields_condition_check);
 
     }
-    
+
 }

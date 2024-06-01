@@ -206,9 +206,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 945242012}
+      - m_Target: {fileID: 945242017}
         m_TargetAssemblyTypeName: reviewquiz, Assembly-CSharp
-        m_MethodName: ReviewCheck
+        m_MethodName: get_profile_details
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -16,14 +16,14 @@ public class PlayerMovements : MonoBehaviour
     private bool isPaused = false; // Track whether the game is paused
     public static string dateLastplay;
     public static string timeLastplay;
-   
-    
-  
+
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         LoadPosition();  // Load the position at the start
-        Debug.Log("The spring token is token is"+CheckinPlayDirectly.playerLoginJWTToken);
+        Debug.Log("The spring token is token is" + CheckinPlayDirectly.playerLoginJWTToken);
     }
 
     private void Update()
@@ -82,7 +82,7 @@ public class PlayerMovements : MonoBehaviour
     public void updatePlayerStatus()
     {
         string url = "http://localhost:8081/api/playerstatus/updateStatus/" + CheckinPlayDirectly.playerIDvalue;
-        
+
         StartCoroutine(SendPlayerStatusUpdateRequest(url, CheckinPlayDirectly.playerLoginJWTToken));
     }
     public IEnumerator SendPlayerStatusUpdateRequest(string url, string jwt_newone)
@@ -92,7 +92,7 @@ public class PlayerMovements : MonoBehaviour
         int gemsValue = 10;
 
         // Define the individual game data variables
-        double playerPosition_X= transform.position.x;
+        double playerPosition_X = transform.position.x;
         double playerPosition_Y = transform.position.y;
         int coinscount = ItemCollector.coins;
         string time_json = timeLastplay;
