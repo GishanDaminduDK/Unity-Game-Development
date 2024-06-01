@@ -4,12 +4,11 @@ using UnityEngine.UI;
 public class ItemSpawn: MonoBehaviour
 {
     public GameObject ItemPrefab;
-    public GameObject spawnButton;
 
     public float Radius = 0.2f;
     void Start()
     {
-        spawnButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SpawnObject);
+        gameObject.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(SpawnObject);
     }
 
     void Update()
