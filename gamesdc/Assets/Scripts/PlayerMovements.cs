@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovements : MonoBehaviour
 {
@@ -16,7 +17,8 @@ public class PlayerMovements : MonoBehaviour
     private bool isPaused = false; // Track whether the game is paused
     public static string dateLastplay;
     public static string timeLastplay;
-
+    public static int coinscount;
+    [SerializeField] private Text coinsCount; // SerializeField for editor access
 
 
     private void Start()
@@ -48,6 +50,7 @@ public class PlayerMovements : MonoBehaviour
                 //Debug.Log("Flipping sprite to the right.");
             }
         }
+        coinsCount.text = ItemCollector.coins.ToString();
     }
 
 
@@ -148,13 +151,14 @@ public class PlayerMovements : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("PlayerPosition"))
         {
-            string json = PlayerPrefs.GetString("PlayerPosition");
-            GameData data = JsonUtility.FromJson<GameData>(json);
-            Debug.Log("Loaded Data: " + json); // Check what is being loaded
-            Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
-            rb.position = position;
-            ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
+            //string json = PlayerPrefs.GetString("PlayerPosition");
+            //GameData data = JsonUtility.FromJson<GameData>(json);
+            //Debug.Log("Loaded Data: " + json); // Check what is being loaded
+           // Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
+            //rb.position = position;
+            //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
             DateTime now_time = DateTime.Now;
+
 
             // Log the current time to the console
             Debug.Log("Current Time: " + now_time.ToShortTimeString());
@@ -162,9 +166,10 @@ public class PlayerMovements : MonoBehaviour
 
             // Log the current date to the console
             Debug.Log("Current Date: " + now_date.ToShortDateString());
+            Debug.Log("Test Loading Condition");
+            StartGettingSavedData(CheckinPlayDirectly.playerIDvalue, CheckinPlayDirectly.playerLoginJWTToken);
         }
-        Debug.Log("Test Loading Condition");
-        StartGettingSavedData(CheckinPlayDirectly.playerIDvalue, CheckinPlayDirectly.playerLoginJWTToken);
+        
     }
 
     void StartGettingSavedData(string id_value_string, string jwt_newone)
@@ -256,7 +261,9 @@ public class PlayerMovements : MonoBehaviour
                         // Extracting specific values from the 'resourceObject'
                         double playerPositionX = (double)resourceObject["playerPositionX"];
                         double playerPositionY = (double)resourceObject["playerPositionY"];
-                        int coinscount = (int)resourceObject["coinscount"];
+                        float playerPositionX_floatvalue = Convert.ToSingle(playerPositionX);
+                        float playerPositionY_floatvalue = Convert.ToSingle(playerPositionY);
+                        coinscount = (int)resourceObject["coinscount"];
                         string time = (string)resourceObject["time"];
                         string date = (string)resourceObject["date"];
 
@@ -265,9 +272,12 @@ public class PlayerMovements : MonoBehaviour
                         string json = PlayerPrefs.GetString("PlayerPosition");
                         GameData data = JsonUtility.FromJson<GameData>(json);
                         Debug.Log("Loaded Data: " + json); // Check what is being loaded
-                        Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
+                        Vector2 position = new Vector2(playerPositionX_floatvalue, playerPositionY_floatvalue);
                         rb.position = position;
-                        ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
+                        //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
+                        ItemCollector.coins = coinscount; // Make sure to restore the coins count
+                        coinsCount.text = ItemCollector.coins.ToString();
+
                         DateTime now_time = DateTime.Now;
 
                         // Log the current time to the console
