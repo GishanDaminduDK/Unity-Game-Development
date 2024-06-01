@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Data;
-using Microsoft.Unity.VisualStudio.Editor;
+
 using Image = UnityEngine.UI.Image;
 
 public class ShopTemplate : MonoBehaviour
