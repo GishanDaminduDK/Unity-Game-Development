@@ -34,12 +34,12 @@ public class CheckinPlayDirectly : MonoBehaviour
         //string url = "http://localhost:8081/api/playerstatus/updateStatus/" + id_value_string;
         //StartCoroutine(SendPlayerStatusUpdateRequest(url, jwt_newone));
     }
-    public void updatePlayerStatus()
+    /*public void updatePlayerStatus()
     {
         string url = "http://localhost:8081/api/playerstatus/updateStatus/" + id_value_string;
         Debug.Log(jwt_newone);
         StartCoroutine(SendPlayerStatusUpdateRequest(url, jwt_newone));
-    }
+    }*/
 
     public IEnumerator GetProfile()
     {
@@ -133,7 +133,7 @@ public class CheckinPlayDirectly : MonoBehaviour
                 id_value_string = id_value.ToString();
                 playerIDvalue = id_value_string;
                 StartCheckingQAdone(id_value_string, jwt_newone);
-                updatePlayerStatus();
+                //updatePlayerStatus();
             }
         }
     }
@@ -200,64 +200,64 @@ public class CheckinPlayDirectly : MonoBehaviour
         }
     }
 
-    public IEnumerator SendPlayerStatusUpdateRequest(string url, string jwt_newone)
-    {
-        int id_value = 1;
-        int totalCoins_Value = 90;
-        int gemsValue = 10;
+    //public IEnumerator SendPlayerStatusUpdateRequest(string url, string jwt_newone)
+    //{
+    //    int id_value = 1;
+    //    int totalCoins_Value = 90;
+    //    int gemsValue = 10;
 
-        // Define the individual game data variables
-        double playerPositionX = 12.554312705993653;
-        double playerPositionY = 1.9378679990768433;
-        int coinscount = 12;
-        string time = "9:55 AM";
-        string date = "6/1/2024";
+    //    // Define the individual game data variables
+    //    double playerPositionX = 12.554312705993653;
+    //    double playerPositionY = 1.9378679990768433;
+    //    int coinscount = 12;
+    //    string time = "9:55 AM";
+    //    string date = "6/1/2024";
 
-        // Construct game data object using variables
-        var gameData = new
-        {
-            playerPositionX = playerPositionX,
-            playerPositionY = playerPositionY,
-            coinscount = coinscount,
-            time = time,
-            date = date
-        };
+    //    // Construct game data object using variables
+    //    var gameData = new
+    //    {
+    //        playerPositionX = playerPositionX,
+    //        playerPositionY = playerPositionY,
+    //        coinscount = coinscount,
+    //        time = time,
+    //        date = date
+    //    };
 
-        string jsonGameData = JsonConvert.SerializeObject(gameData);
+    //    string jsonGameData = JsonConvert.SerializeObject(gameData);
 
-        // Construct the outer JSON object
-        var outerObject = new
-        {
-            id = id_value,
-            coins = totalCoins_Value,
-            gems = gemsValue,
-            resources = new string[] { jsonGameData }  // Array containing the serialized game data
-        };
+    //    // Construct the outer JSON object
+    //    var outerObject = new
+    //    {
+    //        id = id_value,
+    //        coins = totalCoins_Value,
+    //        gems = gemsValue,
+    //        resources = new string[] { jsonGameData }  // Array containing the serialized game data
+    //    };
 
-        // Serialize the outer object to a JSON string
-        string jsonProfileUpdate = JsonConvert.SerializeObject(outerObject);
+    //    // Serialize the outer object to a JSON string
+    //    string jsonProfileUpdate = JsonConvert.SerializeObject(outerObject);
 
-        // Convert JSON string to byte array
-        byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonProfileUpdate);
-        using (UnityWebRequest requestForUpdatingStatus = UnityWebRequest.Put(url, data))
-        {
-            requestForUpdatingStatus.SetRequestHeader("Content-Type", "application/json");
-            requestForUpdatingStatus.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
-            yield return requestForUpdatingStatus.SendWebRequest();
+    //    // Convert JSON string to byte array
+    //    byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonProfileUpdate);
+    //    using (UnityWebRequest requestForUpdatingStatus = UnityWebRequest.Put(url, data))
+    //    {
+    //        requestForUpdatingStatus.SetRequestHeader("Content-Type", "application/json");
+    //        requestForUpdatingStatus.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
+    //        yield return requestForUpdatingStatus.SendWebRequest();
 
-            if (requestForUpdatingStatus.result == UnityWebRequest.Result.Success)
-            {
-                if (requestForUpdatingStatus.responseCode == 200)
-                {
-                    Debug.Log("Profile updated successfully.");
-                }
-            }
-            else
-            {
-                Debug.Log("Error updating profile: " + requestForUpdatingStatus.error);
-            }
-        }
-    }
+    //        if (requestForUpdatingStatus.result == UnityWebRequest.Result.Success)
+    //        {
+    //            if (requestForUpdatingStatus.responseCode == 200)
+    //            {
+    //                Debug.Log("Profile updated successfully.");
+    //            }
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Error updating profile: " + requestForUpdatingStatus.error);
+    //        }
+    //    }
+    //}
 
 
 

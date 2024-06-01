@@ -1,9 +1,11 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovements : MonoBehaviour
 {
@@ -161,8 +163,122 @@ public class PlayerMovements : MonoBehaviour
             // Log the current date to the console
             Debug.Log("Current Date: " + now_date.ToShortDateString());
         }
+        Debug.Log("Test Loading Condition");
+        StartGettingSavedData(CheckinPlayDirectly.playerIDvalue, CheckinPlayDirectly.playerLoginJWTToken);
     }
 
+    void StartGettingSavedData(string id_value_string, string jwt_newone)
+    {
+        string url = "http://localhost:8081/api/v1/player/answer/" + id_value_string;
+        StartCoroutine(SendPlayerStatusGettingRequest(url, jwt_newone));
+    }
+
+
+    //IEnumerator SendPlayerStatusGettingRequest(string url, string jwt_newone)
+    //{
+    //    using (UnityWebRequest requestforcheckingQAdone = UnityWebRequest.Get(url))
+    //    {
+    //        requestforcheckingQAdone.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
+
+    //        yield return requestforcheckingQAdone.SendWebRequest();
+
+    //        if (requestforcheckingQAdone.result != UnityWebRequest.Result.Success)
+    //        {
+    //            Debug.LogError(requestforcheckingQAdone.error);
+    //            yield break;
+    //        }
+
+    //        string jsonResponse = requestforcheckingQAdone.downloadHandler.text;
+    //        Debug.Log("Response: " + jsonResponse);
+
+    //        try
+    //        {
+    //            JObject responseJson = JObject.Parse(jsonResponse);
+
+    //            if (responseJson.TryGetValue("content", out JToken contentToken) &&
+    //                responseJson.TryGetValue("code", out JToken codeToken))
+    //            {
+    //                if (contentToken.Type == JTokenType.Null && codeToken.ToString() == "01")
+    //                {
+
+    //                    //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+    //                }
+    //                else if (contentToken.Type != JTokenType.Null && codeToken.ToString() == "00")
+    //                {
+
+    //                }
+    //                else
+    //                {
+    //                    Debug.Log("Content is null but code is not '01'");
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Debug.Log("No 'content' or 'code' field found in the response.");
+    //            }
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Debug.LogError("Error parsing JSON response: " + e.Message);
+    //        }
+    //    }
+    //}
+    public IEnumerator SendPlayerStatusGettingRequest(string url, string jwt_newone)
+    {
+        using (UnityWebRequest requestForCheckingQADone = UnityWebRequest.Get(url))
+        {
+            requestForCheckingQADone.SetRequestHeader("Authorization", "Bearer " + jwt_newone);
+
+            yield return requestForCheckingQADone.SendWebRequest();
+
+            if (requestForCheckingQADone.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(requestForCheckingQADone.error);
+                yield break;
+            }
+
+            string jsonResponse = requestForCheckingQADone.downloadHandler.text;
+            Debug.Log("Response: " + jsonResponse);
+
+            try
+            {
+                JObject responseJson = JObject.Parse(jsonResponse);
+
+                // Correcting the path to access resources within playerStatus
+                if (responseJson["content"]?["playerStatus"]?["resources"] != null)
+                {
+                    JArray resourcesArray = (JArray)responseJson["content"]["playerStatus"]["resources"];
+                    if (resourcesArray.Count > 0)
+                    {
+                        string resourcesString = resourcesArray[0].ToString();  // Assuming there's at least one item in the array
+                        JObject resourceObject = JObject.Parse(resourcesString);
+
+                        // Extracting specific values from the 'resourceObject'
+                        double playerPositionX = (double)resourceObject["playerPositionX"];
+                        double playerPositionY = (double)resourceObject["playerPositionY"];
+                        int coinscount = (int)resourceObject["coinscount"];
+                        string time = (string)resourceObject["time"];
+                        string date = (string)resourceObject["date"];
+
+                        // Debugging the values
+                        Debug.Log($"Extracted Values:\nPlayer Position X: {playerPositionX}\nPlayer Position Y: {playerPositionY}\nCoins Count: {coinscount}\nTime: {time}\nDate: {date}");
+                    }
+                    else
+                    {
+                        Debug.Log("No resources found in the response.");
+                    }
+                }
+                else
+                {
+                    Debug.Log("No 'resources' field found in the response or 'playerStatus' is null.");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error parsing JSON response: " + e.Message);
+            }
+        }
+    }
     public void PauseAndSaveGame()
     {
         isPaused = true;  // Set the game as paused
