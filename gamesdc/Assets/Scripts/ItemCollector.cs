@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using EasyUI.popupmessages;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,11 @@ public class ItemCollector : MonoBehaviour
             Destroy(collision.gameObject);
             coins++;
             coinsCount.text = ""  + coins;
+            PopupMessageUI.Instance
+            .SetTitle("Example Title")
+            .SetMessage("This is an example message.").SetReward(false)
+            .Show();
         }
     }
+    
 }
