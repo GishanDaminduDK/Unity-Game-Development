@@ -695,7 +695,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1942528063}
+      - m_Target: {fileID: 1942528067}
         m_TargetAssemblyTypeName: quitbutton, Assembly-CSharp
         m_MethodName: quiteGame
         m_Mode: 1
@@ -2083,7 +2083,7 @@ GameObject:
   - component: {fileID: 1203428878}
   - component: {fileID: 1203428877}
   m_Layer: 5
-  m_Name: Submit Button
+  m_Name: Save Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2153,7 +2153,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1942528061}
+      - m_Target: {fileID: 1942528065}
         m_TargetAssemblyTypeName: UpdateOnePlayerDetails, Assembly-CSharp
         m_MethodName: UpdateProfileInformations
         m_Mode: 1
@@ -3116,9 +3116,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1942528062}
-        m_TargetAssemblyTypeName: gotoquestionnaire, Assembly-CSharp
-        m_MethodName: Login
+      - m_Target: {fileID: 1942528065}
+        m_TargetAssemblyTypeName: UpdateOnePlayerDetails, Assembly-CSharp
+        m_MethodName: continueGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3802,6 +3802,10 @@ GameObject:
   - component: {fileID: 1942528061}
   - component: {fileID: 1942528062}
   - component: {fileID: 1942528063}
+  - component: {fileID: 1942528064}
+  - component: {fileID: 1942528065}
+  - component: {fileID: 1942528066}
+  - component: {fileID: 1942528067}
   m_Layer: 5
   m_Name: 'Canvas '
   m_TagString: Untagged
@@ -3940,6 +3944,69 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9910ddc7b0c34914e9325e7506a424f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1942528064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942528055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32124c18ce14c5149a201d38ada08790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input_firstname: {fileID: 1277787351}
+  input_lastname: {fileID: 924918800}
+  input_username: {fileID: 1391524856}
+  input_nic: {fileID: 869423697}
+  input_phonenumber: {fileID: 878694945}
+  input_email: {fileID: 1361493978}
+  resultText: {fileID: 0}
+--- !u!114 &1942528065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942528055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72627e0b4967b01478b00323e0a68767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input_firstname: {fileID: 1277787351}
+  input_lastname: {fileID: 924918800}
+  input_username: {fileID: 1391524856}
+  input_nic: {fileID: 869423697}
+  input_phonenumber: {fileID: 878694945}
+  input_email: {fileID: 1361493978}
+--- !u!114 &1942528066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942528055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f412107216e92459603fe5f95d6672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: 
+  password: 
+--- !u!114 &1942528067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942528055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7c268380e229443bfe92ce98a554e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1943126981
@@ -4259,9 +4326,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1942528066}
         m_TargetAssemblyTypeName: backmethod, Assembly-CSharp
-        m_MethodName: GoBackToStartScene
+        m_MethodName: gotoPreviousScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

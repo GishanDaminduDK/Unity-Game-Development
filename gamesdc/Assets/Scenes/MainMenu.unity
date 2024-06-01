@@ -802,6 +802,8 @@ GameObject:
   - component: {fileID: 945242017}
   - component: {fileID: 945242016}
   - component: {fileID: 945242015}
+  - component: {fileID: 945242018}
+  - component: {fileID: 945242019}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -983,6 +985,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 0}
+--- !u!114 &945242018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945242006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f412107216e92459603fe5f95d6672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: 
+  password: 
+--- !u!114 &945242019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945242006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7c268380e229443bfe92ce98a554e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1186675674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1230,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437393548}
+      - m_Target: {fileID: 945242018}
         m_TargetAssemblyTypeName: backmethod, Assembly-CSharp
         m_MethodName: GoBackToStartScene
         m_Mode: 1
@@ -1867,7 +1895,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 945242013}
+      - m_Target: {fileID: 945242019}
         m_TargetAssemblyTypeName: quitbutton, Assembly-CSharp
         m_MethodName: quiteGame
         m_Mode: 1

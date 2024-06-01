@@ -206,9 +206,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 180570100}
         m_TargetAssemblyTypeName: backmethod, Assembly-CSharp
-        m_MethodName: GoMainMenu
+        m_MethodName: gotoPreviousScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 180570092}
   - component: {fileID: 180570098}
   - component: {fileID: 180570099}
+  - component: {fileID: 180570100}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -387,6 +388,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultText: {fileID: 510458164}
+--- !u!114 &180570100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180570091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f412107216e92459603fe5f95d6672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  username: 
+  password: 
 --- !u!1 &403382170
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,9 +485,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 180570100}
         m_TargetAssemblyTypeName: backmethod, Assembly-CSharp
-        m_MethodName: GoForwardMenu
+        m_MethodName: gotoNextScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

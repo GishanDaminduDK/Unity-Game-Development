@@ -27,6 +27,16 @@ public class backmethod : MonoBehaviour
             Debug.Log("Scene 'MainMenu' loaded.");
         
     }
+    public void gotoPreviousScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+
+
+    }
+    public void gotoNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+    }
     public void GoMainMenu() { 
     
     SceneManager.LoadScene("MainMenu");
