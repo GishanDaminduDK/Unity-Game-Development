@@ -262,6 +262,20 @@ public class PlayerMovements : MonoBehaviour
 
                         // Debugging the values
                         Debug.Log($"Extracted Values:\nPlayer Position X: {playerPositionX}\nPlayer Position Y: {playerPositionY}\nCoins Count: {coinscount}\nTime: {time}\nDate: {date}");
+                        string json = PlayerPrefs.GetString("PlayerPosition");
+                        GameData data = JsonUtility.FromJson<GameData>(json);
+                        Debug.Log("Loaded Data: " + json); // Check what is being loaded
+                        Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
+                        rb.position = position;
+                        ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
+                        DateTime now_time = DateTime.Now;
+
+                        // Log the current time to the console
+                        Debug.Log("Current Time: " + now_time.ToShortTimeString());
+                        DateTime now_date = DateTime.Now;
+
+                        // Log the current date to the console
+                        Debug.Log("Current Date: " + now_date.ToShortDateString());
                     }
                     else
                     {

@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: fd5a1072b25ae9e4ab1d3c709ce4d1a0
   - enabled: 1
-    path: Assets/Scenes/view_details.unity
+    path: Assets/Scenes/ViewPlayer.unity
     guid: b150c2715740cbf4da79533e3644cc5a
   - enabled: 1
-    path: Assets/Scenes/update_details.unity
+    path: Assets/Scenes/UpdatePlayer.unity
     guid: de0680e25753e254c9e24686df487b31
   - enabled: 1
     path: Assets/Scenes/ErrorPage.unity
