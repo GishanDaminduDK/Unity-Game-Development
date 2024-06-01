@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\postmethod.cs" />
     <Compile Include="Assets\Scripts\update_one_player_details.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\EnergySavingsAlgorithm.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>
