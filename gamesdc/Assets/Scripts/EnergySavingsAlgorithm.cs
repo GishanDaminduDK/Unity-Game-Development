@@ -123,7 +123,7 @@ public class EnergySavingsAlgorithm : MonoBehaviour
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponse = request.downloadHandler.text;
-                Debug.Log("Daily power consumption data: " + jsonResponse);
+                //Debug.Log("Daily power consumption data: " + jsonResponse);
                 Dictionary<string, float> dailyConsumptionInAMonth_1 = ExtractDailyConsumption(jsonResponse);
             }
             else
@@ -170,7 +170,7 @@ public class EnergySavingsAlgorithm : MonoBehaviour
             if (requestnew2.result == UnityWebRequest.Result.Success)
             {
                 string jsonResponseNew = requestnew2.downloadHandler.text;
-                Debug.Log("Current daily power consumption data: " + jsonResponseNew);
+                //Debug.Log("Current daily power consumption data: " + jsonResponseNew);
                 Dictionary<string, float> dailyConsumptionInAMonth_2 = ExtractDailyConsumption(jsonResponseNew);
             }
             else
@@ -207,12 +207,12 @@ public class EnergySavingsAlgorithm : MonoBehaviour
         }
 
         // Log the extracted data
-        foreach (var day in dailyUnits)
+        /*foreach (var day in dailyUnits)
         {
             Debug.Log("Day " + day.Key + ": " + day.Value + " units");
             key_val_test= day.Key;
         }
-        Debug.Log("Updated Key Value" + key_val_test);
+        Debug.Log("Updated Key Value" + key_val_test);*/
 
         return dailyUnits;
     }

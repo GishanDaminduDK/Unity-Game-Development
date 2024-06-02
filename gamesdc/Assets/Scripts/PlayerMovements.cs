@@ -22,6 +22,9 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private Text gemsCount; // SerializeField for editor access
     public Button pauseButton;
     public Button resumeButton;
+    public static int initial_gems_value;
+    public static int initial_coins_value;
+    public static int condition_check_value;
 
 
     private void Start()
@@ -182,12 +185,7 @@ public class PlayerMovements : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("PlayerPosition"))
         {
-            //string json = PlayerPrefs.GetString("PlayerPosition");
-            //GameData data = JsonUtility.FromJson<GameData>(json);
-            //Debug.Log("Loaded Data: " + json); // Check what is being loaded
-           // Vector2 position = new Vector2(data.playerPositionX, data.playerPositionY);
-            //rb.position = position;
-            //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
+            
             DateTime now_time = DateTime.Now;
 
 
@@ -279,8 +277,24 @@ public class PlayerMovements : MonoBehaviour
             try
             {
                 JObject responseJson = JObject.Parse(jsonResponse);
+                //Debug.Log("This is all json object parse" + responseJson);
+                int totalCoins = (int)responseJson["content"]["totalCoins"];
+                //Debug.Log("Total Coins: " + totalCoins);
+                initial_gems_value = totalCoins;
+                //Debug.Log("after updated value of gems"+ initial_gems_value);
 
                 // Correcting the path to access resources within playerStatus
+                if (responseJson["playerStatus"] ==null) {// I want to player Status was null check valued assigned as 1
+                    condition_check_value = 1;
+                    gemsCount.text=totalCoins.ToString();
+                    initial_coins_value = 100;
+                    coinsCount.text = "100";
+                    
+                }
+                else
+                {
+                   condition_check_value = 0;
+                }
                 if (responseJson["content"]?["playerStatus"]?["resources"] != null)
                 {
                     JArray resourcesArray = (JArray)responseJson["content"]["playerStatus"]["resources"];
@@ -288,7 +302,7 @@ public class PlayerMovements : MonoBehaviour
                     {
                         string resourcesString = resourcesArray[0].ToString();  // Assuming there's at least one item in the array
                         JObject resourceObject = JObject.Parse(resourcesString);
-                        Debug.Log("This is all json object parse" + resourceObject);
+                        
 
                         // Extracting specific values from the 'resourceObject'
                         double playerPositionX = (double)resourceObject["playerPositionX"];
@@ -307,20 +321,24 @@ public class PlayerMovements : MonoBehaviour
                         Debug.Log("Loaded Data: " + json); // Check what is being loaded
                         Vector2 position = new Vector2(playerPositionX_floatvalue, playerPositionY_floatvalue);
                         rb.position = position;
+
                         //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
                         ItemCollector.coins = coinscount; // Make sure to restore the coins count
                         ItemCollector.gems = gemscount;
                         gemsCount.text = ItemCollector.gems.ToString();
                         coinsCount.text = ItemCollector.coins.ToString();
+                        initial_gems_value = gemscount;
+                        initial_coins_value= coinscount;
 
                         DateTime now_time = DateTime.Now;
-
-                        // Log the current time to the console
-                        Debug.Log("Current Time: " + now_time.ToShortTimeString());
                         DateTime now_date = DateTime.Now;
 
+
+                        // Log the current time to the console
+                        //Debug.Log("Current Time: " + now_time.ToShortTimeString());
+
                         // Log the current date to the console
-                        Debug.Log("Current Date: " + now_date.ToShortDateString());
+                        //Debug.Log("Current Date: " + now_date.ToShortDateString());
 
                     }
                     else
