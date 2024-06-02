@@ -9,8 +9,8 @@ using System;
 public class ShopManager : MonoBehaviour
 {
 
-    [SerializeField] private Text coinsCount;
-    [SerializeField] private Text gemsCount;
+    //[SerializeField] private Text coinsCount;
+    //[SerializeField] private Text gemsCount;
     public int coin;
     public int gem;
     public ShopItem[] ShopItem;
@@ -29,8 +29,8 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coin = int.Parse(coinsCount.text);
-        gem = int.Parse(gemsCount.text);
+        coin = int.Parse(ItemCollector.coins.ToString());
+        gem = int.Parse(ItemCollector.gems.ToString());
         CheckPurchase();
     }
 
@@ -77,7 +77,8 @@ public class ShopManager : MonoBehaviour
             if (coin >= ShopItem[btnNo].price)
             {
                 coin = coin - ShopItem[btnNo].price;
-                coinsCount.text = "" + coin;
+                
+                ItemCollector.coins = coin;
                 CheckPurchase();
             }
         }
@@ -86,7 +87,7 @@ public class ShopManager : MonoBehaviour
             if (gem >= ShopItem[btnNo].price)
             {
                 gem = gem - ShopItem[btnNo].price;
-                gemsCount.text = "" + gem;
+                ItemCollector.gems= gem;
                 CheckPurchase();
             }
         }

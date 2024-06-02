@@ -19,6 +19,9 @@ public class PlayerMovements : MonoBehaviour
     public static string timeLastplay;
     public static int coinscount;
     [SerializeField] private Text coinsCount; // SerializeField for editor access
+    [SerializeField] private Text gemsCount; // SerializeField for editor access
+    public Button pauseButton;
+    public Button resumeButton;
 
 
     private void Start()
@@ -26,8 +29,32 @@ public class PlayerMovements : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         LoadPosition();  // Load the position at the start
         Debug.Log("The spring token is token is" + CheckinPlayDirectly.playerLoginJWTToken);
+        pauseButton.gameObject.SetActive(true);
+        resumeButton.gameObject.SetActive(false);
+
+        // Add listeners to the buttons
+        pauseButton.onClick.AddListener(OnPauseButtonClick);
+        resumeButton.onClick.AddListener(OnResumeButtonClick);
+    }
+    private void OnPauseButtonClick()
+    {
+        // Execute the pause functionality
+        PauseAndSaveGame();
+
+        // Hide the pause button and show the resume button
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(true);
     }
 
+    private void OnResumeButtonClick()
+    {
+        // Execute the resume functionality
+        ResumeGame();
+
+        // Hide the resume button and show the pause button
+        resumeButton.gameObject.SetActive(false);
+        pauseButton.gameObject.SetActive(true);
+    }
     private void Update()
     {
         if (!isPaused)
@@ -51,6 +78,7 @@ public class PlayerMovements : MonoBehaviour
             }
         }
         coinsCount.text = ItemCollector.coins.ToString();
+        gemsCount.text=ItemCollector.gems.ToString();
     }
 
 
@@ -69,6 +97,7 @@ public class PlayerMovements : MonoBehaviour
             playerPositionX = transform.position.x,
             playerPositionY = transform.position.y,
             coinscount = ItemCollector.coins,
+            gemscount = ItemCollector.gems,
             date = dateLastplay,
             time = timeLastplay
         };
@@ -97,7 +126,8 @@ public class PlayerMovements : MonoBehaviour
         // Define the individual game data variables
         double playerPosition_X = transform.position.x;
         double playerPosition_Y = transform.position.y;
-        int coinscount = ItemCollector.coins;
+        int coinscount_val = ItemCollector.coins;
+        int gemscount_val= ItemCollector.gems;
         string time_json = timeLastplay;
         string date_json = dateLastplay;
 
@@ -106,7 +136,8 @@ public class PlayerMovements : MonoBehaviour
         {
             playerPositionX = playerPosition_X,
             playerPositionY = playerPosition_Y,
-            coinscount = coinscount,
+            coinscount = coinscount_val,
+            gemscount = gemscount_val,
             time = time_json,
             date = date_json
         };
@@ -257,13 +288,15 @@ public class PlayerMovements : MonoBehaviour
                     {
                         string resourcesString = resourcesArray[0].ToString();  // Assuming there's at least one item in the array
                         JObject resourceObject = JObject.Parse(resourcesString);
+                        Debug.Log("This is all json object parse" + resourceObject);
 
                         // Extracting specific values from the 'resourceObject'
                         double playerPositionX = (double)resourceObject["playerPositionX"];
                         double playerPositionY = (double)resourceObject["playerPositionY"];
                         float playerPositionX_floatvalue = Convert.ToSingle(playerPositionX);
                         float playerPositionY_floatvalue = Convert.ToSingle(playerPositionY);
-                        coinscount = (int)resourceObject["coinscount"];
+                        int coinscount = (int)resourceObject["coinscount"];
+                        int gemscount = (int)resourceObject["gemscount"];
                         string time = (string)resourceObject["time"];
                         string date = (string)resourceObject["date"];
 
@@ -276,6 +309,8 @@ public class PlayerMovements : MonoBehaviour
                         rb.position = position;
                         //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
                         ItemCollector.coins = coinscount; // Make sure to restore the coins count
+                        ItemCollector.gems = gemscount;
+                        gemsCount.text = ItemCollector.gems.ToString();
                         coinsCount.text = ItemCollector.coins.ToString();
 
                         DateTime now_time = DateTime.Now;
@@ -286,6 +321,7 @@ public class PlayerMovements : MonoBehaviour
 
                         // Log the current date to the console
                         Debug.Log("Current Date: " + now_date.ToShortDateString());
+
                     }
                     else
                     {

@@ -9,6 +9,7 @@ TagManager:
   - Knight
   - Castle
   - Entrance
+  - gems
   layers:
   - Default
   - TransparentFX

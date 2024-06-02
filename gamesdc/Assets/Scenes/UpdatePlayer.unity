@@ -3116,8 +3116,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1942528065}
-        m_TargetAssemblyTypeName: UpdateOnePlayerDetails, Assembly-CSharp
+      - m_Target: {fileID: 1942528064}
+        m_TargetAssemblyTypeName: gotoquestionnaire, Assembly-CSharp
         m_MethodName: continueGame
         m_Mode: 1
         m_Arguments:

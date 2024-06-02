@@ -2,7 +2,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -23,6 +22,7 @@ public class EnergySavingsAlgorithm : MonoBehaviour
     public List<float> powerConsumptionValuesArray = new List<float>(); // List to store power consumption values
     public int year1 = 2024;   // Example year for API requests
     public string month1 = "JANUARY"; // Example month for API requests
+    public static string key_val_test="0";
 
     void Start()
     {
@@ -31,6 +31,7 @@ public class EnergySavingsAlgorithm : MonoBehaviour
         Debug.Log("Current Time: " + DateTime.Now.ToShortTimeString());
         Debug.Log("Current Date: " + DateTime.Now.ToShortDateString());
           // Fetch daily power consumption
+
     }
 
     // Placeholder for future tree-related initialization
@@ -206,10 +207,12 @@ public class EnergySavingsAlgorithm : MonoBehaviour
         }
 
         // Log the extracted data
-        //foreach (var day in dailyUnits)
-        //{
-        //    Debug.Log("Day " + day.Key + ": " + day.Value + " units");
-        //}
+        foreach (var day in dailyUnits)
+        {
+            Debug.Log("Day " + day.Key + ": " + day.Value + " units");
+            key_val_test= day.Key;
+        }
+        Debug.Log("Updated Key Value" + key_val_test);
 
         return dailyUnits;
     }

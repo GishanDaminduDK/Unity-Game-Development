@@ -47,6 +47,7 @@ public class gotoquestionnaire : MonoBehaviour
         else
         {
             Debug.Log("Successfully continued Game");
+            StartCoroutine(SendLoginRequest());
             Debug.Log(input_frist_name);
             if (input_frist_name == "Saman")
             {
@@ -122,7 +123,7 @@ public class gotoquestionnaire : MonoBehaviour
     {
         string url = "http://localhost:8081/api/v1/player/answer/" + id_value_string;
         // Assuming you want to send the request with an access token
-        string accessToken = "your_access_token_here"; // Replace this with your actual access token
+        string accessToken = jwt_newone; // Replace this with your actual access token
         StartCoroutine(SendRequest(url, jwt_newone));
     }
 
