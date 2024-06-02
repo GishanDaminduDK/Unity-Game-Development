@@ -70,7 +70,8 @@ public class EnergySavingsAlgorithm : MonoBehaviour
 
         //day1 = 1;
 
-        date1 = DateTime.Now.ToShortDateString();
+        //date1 = DateTime.Now.ToShortDateString();
+        date1 = "4/30/2024";
 
         string[] dateparts = date1.Split("/");
         day1 = int.Parse(dateparts[1]);
@@ -273,18 +274,18 @@ public class EnergySavingsAlgorithm : MonoBehaviour
         {
             Debug.Log("good");
             condition = "Good";
-            finalScore = (parameter1 / 10) * 50 + (parameter2) * 50;
+            finalScore = (parameter1 / 10);
         }
         else if (parameter1 < 0 && parameter2 >= 0)
         {
             Debug.Log("good");
             condition = "Good";
-            finalScore = (parameter1 / 30) * 50 + (parameter2 / 5) * 50;
+            finalScore = (parameter2 / 5) * 50;
         }
         else
         {
             Debug.Log("Energy Waste");
-            condition = " Worse";
+            condition = "Worse";
             finalScore = 0;
         };
         Debug.Log("finalScore: " + finalScore);
