@@ -10,20 +10,26 @@ public class ItemCollector : MonoBehaviour
 {
     public static int coins;
     public static int gems;
+    [SerializeField] private AudioSource audioSource; // Add an AudioSource field
+    [SerializeField] private AudioClip messageTone;
 
-    void Update()
+    void Start()
     {
         if (PlayerMovements.condition_check_value==1)
         {
-            coins = PlayerMovements.initial_coins_value;
-            gems = PlayerMovements.initial_gems_value;
+            //coins = PlayerMovements.initial_coins_value;
+            coins = 100;
+            gems = 30;
+            //gems = PlayerMovements.initial_gems_value;
             //gems= 100;
             //Debug.Log("Set player games values"+PlayerMovements.initial_gems_value);
         }
         else {
-            coins = PlayerMovements.initial_coins_value;
+            coins = 100;
+            gems = 30;
+            //coins = PlayerMovements.initial_coins_value;
             //gems = PlayerMovements.initial_gems_value;
-            gems = PlayerMovements.initial_gems_value; ;
+            //gems = PlayerMovements.initial_gems_value; ;
             //Debug.Log("Set player games values" + PlayerMovements.initial_gems_value);
 
 
@@ -38,19 +44,25 @@ public class ItemCollector : MonoBehaviour
         if (collision.gameObject.CompareTag("coins"))
         {
             Destroy(collision.gameObject);
-            PlayerMovements.initial_coins_value++;
+            if (audioSource != null && messageTone != null)
+            {
+                audioSource.PlayOneShot(messageTone);
+            }
+            //PlayerMovements.initial_coins_value++;
+            coins++;
             //coinsCount.text = "" + coins;
-            PopupMessageUI.Instance
-            .SetTitle("Example Title")
-            .SetMessage("This is an example message.").SetReward(false)
-            .Show();
+            
         }
         //gems = int.Parse(gemsCount.text);
         if (collision.gameObject.CompareTag("gems"))
         {
             Destroy(collision.gameObject);
-            PlayerMovements.initial_gems_value++;
-            //gems++;
+            if (audioSource != null && messageTone != null)
+            {
+                audioSource.PlayOneShot(messageTone);
+            }
+            //PlayerMovements.initial_gems_value++;
+            gems++;
 
             //gemsCount.text = "" + gems;
 

@@ -323,12 +323,12 @@ public class PlayerMovements : MonoBehaviour
                         rb.position = position;
 
                         //ItemCollector.coins = data.coinscount; // Make sure to restore the coins count
-                        ItemCollector.coins = coinscount; // Make sure to restore the coins count
-                        ItemCollector.gems = gemscount;
+                        //ItemCollector.coins = coinscount; // Make sure to restore the coins count
+                        //ItemCollector.gems = gemscount;
                         gemsCount.text = ItemCollector.gems.ToString();
                         coinsCount.text = ItemCollector.coins.ToString();
-                        initial_gems_value = gemscount;
-                        initial_coins_value= coinscount;
+                        //initial_gems_value = gemscount;
+                        //initial_coins_value= coinscount;
 
                         DateTime now_time = DateTime.Now;
                         DateTime now_date = DateTime.Now;

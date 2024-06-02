@@ -11,16 +11,17 @@ public class TipsGenerator : MonoBehaviour
     // List of energy-saving tips
     private string[] tips = new string[]
     {
-        "Tip: Save energy by turning off lights when you leave a room.",
-        "Tip: Unplug devices when not in use to reduce phantom energy consumption.",
-        "Tip: Use energy-efficient LED bulbs instead of incandescent bulbs.",
-        "Tip: Wash clothes in cold water to save energy used for heating water.",
-        "Tip: Set your thermostat a few degrees lower in winter and higher in summer.",
-        "Tip: Use natural light during the day to reduce the need for artificial lighting.",
-        "Tip: Insulate your home to reduce heating and cooling costs.",
-        "Tip: Use a programmable thermostat to automatically adjust the temperature.",
-        "Tip: Keep your refrigerator and freezer full to maintain temperature efficiency.",
-        "Tip: Turn off your computer and monitor when not in use."
+       "Save energy by turning off lights when you leave a room.",
+        "Unplug devices when not in use to reduce phantom energy consumption.",
+        "Use energy-efficient LED bulbs instead of incandescent bulbs.",
+        "Use natural light during the day to reduce the need for artificial lighting.",
+        "Use a smart power strip to automatically turn off devices.",
+        "Turn off your computer and monitor when not in use.",
+        "Use renewable energy sources like solar panels.",
+        "Upgrade to energy-efficient appliances.",
+        "Avoid using the washing machine during peak hours.",
+        "Air-dry clothes instead of using a dryer."
+
     };
 
     [SerializeField] private Slider cooldownSlider;
