@@ -46,9 +46,10 @@ public class gotoquestionnaire : MonoBehaviour
         }
         else
         {
+            Debug.Log("Gishan checking this" + input_frist_name);
             Debug.Log("Successfully continued Game");
             StartCoroutine(SendLoginRequest());
-            Debug.Log(input_frist_name);
+           
             if (input_frist_name == "Saman")
             {
                 Debug.Log("Yes");
@@ -62,10 +63,11 @@ public class gotoquestionnaire : MonoBehaviour
 
     IEnumerator SendLoginRequest()
     {
-        //string username = "tomcat1";
-        //string password = "tomcat1";
-        string username = input_user_name;
+        string username = viewprofile.username_var;
+        //string password = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGIzOjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhOQ";
+        //string username_1 = input_user_name.text;
         string password = postmethod.password;
+        //Debug.Log("Auto assigned username and password are"+ username_1+password_1);
 
 
 
@@ -94,6 +96,7 @@ public class gotoquestionnaire : MonoBehaviour
         {
             string response = request.downloadHandler.text;
             JObject jsonResponse = JObject.Parse(response);
+            Debug.Log("Player id value getting"+response);
             jwt_newone = (string)jsonResponse["token"];
             Debug.Log(jwt_newone);
             int id_value = (int)jsonResponse["id"];
@@ -115,6 +118,7 @@ public class gotoquestionnaire : MonoBehaviour
             //Debug.Log("You are successfully authenticated. Your JWT token is:" + jwt_newone);
             //Application.OpenURL(url);
             id_value_string = id_value.ToString();
+            Debug.Log("Player id value is"+id_value_string);
             StartCheckingQAdone(id_value_string, jwt_newone);
         }
     }
