@@ -10,34 +10,57 @@ public class ItemCollector : MonoBehaviour
 {
     public static int coins;
     public static int gems;
+   
     [SerializeField] private AudioSource audioSource; // Add an AudioSource field
     [SerializeField] private AudioClip messageTone;
 
     void Start()
     {
-        if (PlayerMovements.condition_check_value==1)
-        {
-            //coins = PlayerMovements.initial_coins_value;
-            coins = 100;
-            gems = 30;
-            //gems = PlayerMovements.initial_gems_value;
-            //gems= 100;
-            //Debug.Log("Set player games values"+PlayerMovements.initial_gems_value);
-        }
-        else {
-            coins = 100;
-            gems = 30;
-            //coins = PlayerMovements.initial_coins_value;
-            //gems = PlayerMovements.initial_gems_value;
-            //gems = PlayerMovements.initial_gems_value; ;
-            //Debug.Log("Set player games values" + PlayerMovements.initial_gems_value);
-
-
-        }
-
+        //GameManager.Instance.onDataReady += HandleDataReady;
+        PlayerMovements.OnValueAssigned += OnValueAssigned;
+        Debug.Log("condition gishan check" + PlayerMovements.condition_check_value);
+        
     }
 
-   
+    private void OnDestroy()
+    {
+        // It's important to unsubscribe from the event when the object is destroyed
+        PlayerMovements.OnValueAssigned -= OnValueAssigned;
+    }
+
+
+
+    private void OnValueAssigned()
+    {
+        // Now you can safely use the value assigned in ScriptA
+        if (PlayerMovements.Instance != null) // Check if the instance is valid
+        {
+            int valueToUse = PlayerMovements.Instance.ImportantValue;
+            Debug.Log("Received value in ScriptB: " + valueToUse);
+            if (PlayerMovements.Instance.ImportantValue == 1)
+            {
+                //coins = PlayerMovements.initial_coins_value;
+                coins = 100;
+                gems = 30;
+                //gems = PlayerMovements.initial_gems_value;
+                //gems= 100;
+                Debug.Log("Gishan will Win this competition" + PlayerMovements.initial_gems_value);
+            }
+            else
+            {
+                coins = 100;
+                gems = 30;
+                //coins = PlayerMovements.initial_coins_value;
+                //gems = PlayerMovements.initial_gems_value;
+                //gems = PlayerMovements.initial_gems_value; ;
+                Debug.Log("Set player games values2" + PlayerMovements.initial_gems_value);
+
+
+            }
+
+            // Perform further actions based on the value
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //coins = int.Parse(coinsCount.text);
@@ -73,37 +96,3 @@ public class ItemCollector : MonoBehaviour
 
 
 
-/*using System.Collections;
-using System.Collections.Generic;
-using EasyUI.popupmessages;
-using UnityEngine;
-using UnityEngine.UI;
-
-public class ItemCollector : MonoBehaviour
-{
-    public static int coins = 0;
-    [SerializeField] private Text coinsCount;
-    public static int gems = 0;
-    [SerializeField] private Text gemsCount;
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        coins = int.Parse(coinsCount.text);
-        if (collision.gameObject.CompareTag("coins"))
-        {
-            Destroy(collision.gameObject);
-            coins++;
-            coinsCount.text = "" + coins;
-
-        }
-
-        gems = int.Parse(gemsCount.text);
-        if (collision.gameObject.CompareTag("gems"))
-        {
-            Destroy(collision.gameObject);
-            gems++;
-            gemsCount.text = "" + gems;
-
-        }
-    }
-
-}*/

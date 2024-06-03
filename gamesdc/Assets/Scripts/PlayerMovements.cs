@@ -25,8 +25,26 @@ public class PlayerMovements : MonoBehaviour
     public static int initial_gems_value;
     public static int initial_coins_value;
     public static int condition_check_value;
+    //public static event Action OnValueAssigned; // Event to notify other scripts
 
+    public int ImportantValue { get; private set; }
+    public static PlayerMovements Instance { get; private set; } // Singleton instance
 
+    public static event Action OnValueAssigned; // Event to notify other scripts
+
+    //public int ImportantValue { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Ensure that there's only one instance
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -257,6 +275,7 @@ public class PlayerMovements : MonoBehaviour
     //        }
     //    }
     //}
+
     public IEnumerator SendPlayerStatusGettingRequest(string url, string jwt_newone)
     {
         using (UnityWebRequest requestForCheckingQADone = UnityWebRequest.Get(url))
@@ -285,11 +304,32 @@ public class PlayerMovements : MonoBehaviour
 
                 // Correcting the path to access resources within playerStatus
                 if (responseJson["playerStatus"] ==null) {// I want to player Status was null check valued assigned as 1
+                  
                     condition_check_value = 1;
+                    //GameManager.Instance.SetSharedValue(condition_check_value);
                     gemsCount.text=totalCoins.ToString();
                     initial_coins_value = 100;
                     coinsCount.text = "100";
-                    
+                    Debug.Log("hELLOWORLD");
+                    JObject playerData = new JObject(
+                        new JProperty("coins", 0),
+                        new JProperty("gems", 0),
+                        new JProperty("resources", new JArray())  // Ensure the array is initialized correctly.
+                    );
+
+
+
+
+                    int playerId;
+                    if (!int.TryParse(CheckinPlayDirectly.playerIDvalue, out playerId))
+                    {
+                        Debug.LogError("Invalid player ID");
+                    }
+                    else
+                    {
+                        StartCoroutine(PlayerStatusSave("http://localhost:8081/api/playerstatus/savestatus", CheckinPlayDirectly.playerLoginJWTToken, playerId, playerData));
+                    }
+
                 }
                 else
                 {
@@ -354,6 +394,46 @@ public class PlayerMovements : MonoBehaviour
             catch (Exception e)
             {
                 Debug.LogError("Error parsing JSON response: " + e.Message);
+            }
+        }
+        yield return new WaitForSeconds(2);
+        ImportantValue = condition_check_value; // Simulate the value assignment
+        Debug.Log("Value assigned in ScriptA");
+
+        // Trigger the event
+        OnValueAssigned?.Invoke();
+
+    }
+
+    public IEnumerator PlayerStatusSave(string url, string jwt, int playerId, JObject playerData)
+    {
+        // Adding the playerId to the playerData JObject just before sending
+        playerData["id"] = playerId;
+
+        // Convert JObject to JSON string
+        string jsonData = playerData.ToString();
+
+        // Create a UnityWebRequest for posting the JSON data
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData); // Correct method to convert string to byte array
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+
+            // Set the content type and authorization headers
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwt);
+
+            // Send the request and wait for the response
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(request.error);
+            }
+            else
+            {
+                Debug.Log("Player status saved successfully: " + request.downloadHandler.text);
             }
         }
     }
