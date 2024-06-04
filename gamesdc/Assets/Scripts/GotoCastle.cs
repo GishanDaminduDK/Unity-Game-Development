@@ -13,7 +13,10 @@ public class GotoCastle : MonoBehaviour
         if (collision.gameObject.CompareTag("Castle"))
         {
             // Load the specified scene
-            SceneManager.LoadScene(sceneToLoad);
+            if (ItemCollector.coins>1000) {
+                SceneManager.LoadScene(sceneToLoad);
+            }
+            //SceneManager.LoadScene(sceneToLoad);
         }
     }
 }

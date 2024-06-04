@@ -17,6 +17,7 @@ public class PlayerMovements : MonoBehaviour
     private bool isPaused = false; // Track whether the game is paused
     public static string dateLastplay;
     public static string timeLastplay;
+    public static int initialCoinsValue;
     public static int coinscount;
     [SerializeField] private Text coinsCount; // SerializeField for editor access
     [SerializeField] private Text gemsCount; // SerializeField for editor access
@@ -25,8 +26,30 @@ public class PlayerMovements : MonoBehaviour
     public static int initial_gems_value;
     public static int initial_coins_value;
     public static int condition_check_value;
+    //public static event Action OnValueAssigned; // Event to notify other scripts
 
+    public int ImportantValue { get; private set; }
+    public int ImportantValue_for_coins { get; private set; }
+    public int ImportantValue_for_gems { get; private set; }
+    public static PlayerMovements Instance { get; private set; } // Singleton instance
 
+    public static event Action OnValueAssigned; // Event to notify other scripts
+    private Animator animator;
+    //private bool isPaused = false;
+
+    //public int ImportantValue { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Ensure that there's only one instance
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,6 +57,7 @@ public class PlayerMovements : MonoBehaviour
         Debug.Log("The spring token is token is" + CheckinPlayDirectly.playerLoginJWTToken);
         pauseButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(false);
+        animator = GetComponent<Animator>();
 
         // Add listeners to the buttons
         pauseButton.onClick.AddListener(OnPauseButtonClick);
@@ -73,6 +97,7 @@ public class PlayerMovements : MonoBehaviour
             {
                 playerSprite.flipX = true;
                 //Debug.Log("Flipping sprite to the left.");
+               
             }
             else if (moveH > 0)
             {
@@ -80,6 +105,8 @@ public class PlayerMovements : MonoBehaviour
                 //Debug.Log("Flipping sprite to the right.");
             }
         }
+        bool isWalking = moveH != 0 || moveV != 0;
+        animator.SetBool("walking", isWalking);
         coinsCount.text = ItemCollector.coins.ToString();
         gemsCount.text=ItemCollector.gems.ToString();
     }
@@ -257,6 +284,7 @@ public class PlayerMovements : MonoBehaviour
     //        }
     //    }
     //}
+
     public IEnumerator SendPlayerStatusGettingRequest(string url, string jwt_newone)
     {
         using (UnityWebRequest requestForCheckingQADone = UnityWebRequest.Get(url))
@@ -277,19 +305,51 @@ public class PlayerMovements : MonoBehaviour
             try
             {
                 JObject responseJson = JObject.Parse(jsonResponse);
-                //Debug.Log("This is all json object parse" + responseJson);
-                int totalCoins = (int)responseJson["content"]["totalCoins"];
-                //Debug.Log("Total Coins: " + totalCoins);
-                initial_gems_value = totalCoins;
-                //Debug.Log("after updated value of gems"+ initial_gems_value);
+                Debug.Log("This is all json object parse" + responseJson);
 
+                // Get the "content" object
+                JObject content = (JObject)responseJson["content"];
+
+                // Access "totalCoins" from "content"
+                int totalCoins = (int)content["totalCoins"];
+
+                // Access "playerStatus" from "content"
+                JObject playerStatus = (JObject)content["playerStatus"];
+
+                // Access specific properties within "playerStatus" (if needed)
+                int playerStatusCoins = (int)playerStatus["coins"];
+                int playerStatusGems = (int)playerStatus["gems"];
+
+                // Log the playerStatus object (optional)
+                Debug.Log("Response: player status" + playerStatus);
                 // Correcting the path to access resources within playerStatus
-                if (responseJson["playerStatus"] ==null) {// I want to player Status was null check valued assigned as 1
+                if (playerStatus == null) {// I want to player Status was null check valued assigned as 1
+                  
                     condition_check_value = 1;
+                    //GameManager.Instance.SetSharedValue(condition_check_value);
                     gemsCount.text=totalCoins.ToString();
                     initial_coins_value = 100;
                     coinsCount.text = "100";
-                    
+                    Debug.Log("hELLOWORLD");
+                    JObject playerData = new JObject(
+                        new JProperty("coins", 0),
+                        new JProperty("gems", 0),
+                        new JProperty("resources", new JArray())  // Ensure the array is initialized correctly.
+                    );
+
+                    Debug.Log("Test null or not player ");
+
+
+                    int playerId;
+                    if (!int.TryParse(CheckinPlayDirectly.playerIDvalue, out playerId))
+                    {
+                        Debug.LogError("Invalid player ID");
+                    }
+                    else
+                    {
+                       // StartCoroutine(PlayerStatusSave("http://localhost:8081/api/playerstatus/savestatus", CheckinPlayDirectly.playerLoginJWTToken, playerId, playerData));
+                    }
+
                 }
                 else
                 {
@@ -310,9 +370,12 @@ public class PlayerMovements : MonoBehaviour
                         float playerPositionX_floatvalue = Convert.ToSingle(playerPositionX);
                         float playerPositionY_floatvalue = Convert.ToSingle(playerPositionY);
                         int coinscount = (int)resourceObject["coinscount"];
+                        initialCoinsValue = coinscount;
                         int gemscount = (int)resourceObject["gemscount"];
+                        initial_gems_value = gemscount;
                         string time = (string)resourceObject["time"];
                         string date = (string)resourceObject["date"];
+                        
 
                         // Debugging the values
                         Debug.Log($"Extracted Values:\nPlayer Position X: {playerPositionX}\nPlayer Position Y: {playerPositionY}\nCoins Count: {coinscount}\nTime: {time}\nDate: {date}");
@@ -353,7 +416,67 @@ public class PlayerMovements : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogError("Error parsing JSON response: " + e.Message);
+                condition_check_value = 1;
+                JObject responseJson = JObject.Parse(jsonResponse);
+                JObject content = (JObject)responseJson["content"];
+                Debug.Log("tHE TOAL"+(int)content["totalCoins"]);
+                initialCoinsValue= (int)content["totalCoins"];
+                int playerId;
+                JObject playerData = new JObject(
+                       new JProperty("coins", 0),
+                       new JProperty("gems", 0),
+                       new JProperty("resources", new JArray())  // Ensure the array is initialized correctly.
+                   );
+                if (!int.TryParse(CheckinPlayDirectly.playerIDvalue, out playerId))
+                {
+                    Debug.LogError("Invalid player ID");
+                }
+                StartCoroutine(PlayerStatusSave("http://localhost:8081/api/playerstatus/savestatus", CheckinPlayDirectly.playerLoginJWTToken, playerId, playerData));
+
+                Debug.LogError("Most probably error will rise playerStatus filed null, therefor error parsing JSON response: " + e.Message);
+            }
+        }
+        yield return new WaitForSeconds(2);
+        ImportantValue = condition_check_value; // Simulate the value assignment
+        ImportantValue_for_coins = initialCoinsValue;
+        ImportantValue_for_gems = initial_gems_value;
+       
+        Debug.Log("Value assigned in ScriptA");
+
+        // Trigger the event
+        OnValueAssigned?.Invoke();
+
+    }
+
+    public IEnumerator PlayerStatusSave(string url, string jwt, int playerId, JObject playerData)
+    {
+        // Adding the playerId to the playerData JObject just before sending
+        playerData["id"] = playerId;
+
+        // Convert JObject to JSON string
+        string jsonData = playerData.ToString();
+
+        // Create a UnityWebRequest for posting the JSON data
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonData); // Correct method to convert string to byte array
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+
+            // Set the content type and authorization headers
+            request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", "Bearer " + jwt);
+
+            // Send the request and wait for the response
+            yield return request.SendWebRequest();
+
+            if (request.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(request.error);
+            }
+            else
+            {
+                Debug.Log("Player status saved successfully: " + request.downloadHandler.text);
             }
         }
     }
