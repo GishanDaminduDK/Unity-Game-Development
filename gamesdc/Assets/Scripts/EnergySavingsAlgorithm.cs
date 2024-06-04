@@ -2,8 +2,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Linq;
@@ -20,6 +20,8 @@ public class EnergySavingsAlgorithm : MonoBehaviour
     private readonly string profileEndpoint = "http://20.15.114.131:8080/api/power-consumption/current/view";
     private readonly string dailyConsumptionEndpoint = "http://20.15.114.131:8080/api/power-consumption/month/daily/view";
     private readonly string dailyConsumptionCurrentMonthEndpoint = "http://20.15.114.131:8080/api/power-consumption/current-month/daily/view";
+    public Image blackImage;
+    private float alpha;
 
     private float timeSinceLastRequest = 0f;
     private float requestInterval = 10f;
@@ -47,11 +49,12 @@ public class EnergySavingsAlgorithm : MonoBehaviour
     public static string key_value = "0";
 
     public float finalScore = 0;
-    private string condition;
+    public static string condition;
 
     public GameObject coinprefab;
     public GameObject coinspawner;
     [SerializeField] private float radius = 20f;
+    
 
     //public string Month = null;
     //public int Year = 0;
@@ -70,8 +73,8 @@ public class EnergySavingsAlgorithm : MonoBehaviour
 
         //day1 = 1;
 
-        //date1 = DateTime.Now.ToShortDateString();
-        date1 = "4/30/2024";
+        date1 = DateTime.Now.ToShortDateString();
+        //date1 = "4/30/2024";
 
         string[] dateparts = date1.Split("/");
         day1 = int.Parse(dateparts[1]);
@@ -109,9 +112,20 @@ public class EnergySavingsAlgorithm : MonoBehaviour
             // dailyConsumptionMonthDict and dailyConsumptionCurrentMonthDict
 
             Algorithm();
+            
+
         }
     }
-
+    IEnumerator ChangeFade()
+    {
+        while (true)
+        {
+            alpha = UnityEngine.Random.Range(0f, 1f); // Generate a random alpha value between 0 and 1
+            blackImage.color = new Color(0, 0, 0, alpha); // Set alpha for the color
+            Debug.Log("Hello World");
+            yield return new WaitForSeconds(1f); // Wait for 1 second before changing alpha again
+        }
+    }
     // energy saving algorithm is here
     void Algorithm()
     {
@@ -274,19 +288,23 @@ public class EnergySavingsAlgorithm : MonoBehaviour
         {
             Debug.Log("good");
             condition = "Good";
-            finalScore = (parameter1 / 10);
+            finalScore = (parameter1 / 10) * 50;
+            //StartCoroutine(ChangeFade());
         }
         else if (parameter1 < 0 && parameter2 >= 0)
         {
             Debug.Log("good");
             condition = "Good";
             finalScore = (parameter2 / 5) * 50;
+            //StartCoroutine(ChangeFade());
         }
         else
         {
             Debug.Log("Energy Waste");
             condition = "Worse";
             finalScore = 0;
+            StartCoroutine(ChangeFade());
+            Debug.Log("Condition string is checkein in darken script");
         };
         Debug.Log("finalScore: " + finalScore);
 

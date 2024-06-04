@@ -41,15 +41,16 @@ public class ItemCollector : MonoBehaviour
             {
                 //coins = PlayerMovements.initial_coins_value;
                 coins = 100;
-                gems = 30;
+                gems = PlayerMovements.Instance.ImportantValue_for_coins;
                 //gems = PlayerMovements.initial_gems_value;
                 //gems= 100;
-                Debug.Log("Gishan will Win this competition" + PlayerMovements.initial_gems_value);
+                Debug.Log("Initial coins value is"+PlayerMovements.initialCoinsValue);
+                Debug.Log("Gishan will Win this competition" + PlayerMovements.Instance.ImportantValue_for_coins);
             }
             else
             {
-                coins = 100;
-                gems = 30;
+                coins = PlayerMovements.Instance.ImportantValue_for_coins;
+                gems = PlayerMovements.Instance.ImportantValue_for_gems;
                 //coins = PlayerMovements.initial_coins_value;
                 //gems = PlayerMovements.initial_gems_value;
                 //gems = PlayerMovements.initial_gems_value; ;

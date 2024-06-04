@@ -12,7 +12,7 @@ public class postmethod : MonoBehaviour
 {
     private string apiKey = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGIzOjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhOQ";
     private string loginEndpoint = "http://20.15.114.131:8080/api/login";
-    private string profileEndpoint = "http://20.15.114.131:8080/api/user/profile/view";
+    //private string profileEndpoint = "http://20.15.114.131:8080/api/user/profile/view";
     public static string password = "NjVkNDIyMjNmMjc3NmU3OTI5MWJmZGIzOjY1ZDQyMjIzZjI3NzZlNzkyOTFiZmRhOQ";
 
     public static string jwtToken = "nulljwtToken";  // To pass jwt token to forward scene
