@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class LeaderBoard : MonoBehaviour
 {
@@ -21,15 +22,18 @@ public class LeaderBoard : MonoBehaviour
 
     public static int coins_count = 50;
     public static int gems_count = 9;
+    public GameObject loadingScreen;
 
-    private void Start()
+    private async void Start()
     {
         string jwtToken = postmethod.jwtToken;  // Get the JWT token from postmethod
 
         if (!string.IsNullOrEmpty(jwtToken) && jwtToken != "nulljwtToken")
         {
-            StartCoroutine(FetchPlayerProfile(jwtToken));
-            StartCoroutine(FetchPlayerNamesFromAPI(jwtToken));
+            ShowLoadingScreen(true);
+            await FetchPlayerProfile(jwtToken);
+            await FetchPlayerNamesFromAPI(jwtToken);
+            ShowLoadingScreen(false);
         }
         else
         {
@@ -79,12 +83,17 @@ public class LeaderBoard : MonoBehaviour
         }
     }
 
-    private IEnumerator FetchPlayerNamesFromAPI(string jwtToken)
+    private async Task FetchPlayerNamesFromAPI(string jwtToken)
     {
         UnityWebRequest request = UnityWebRequest.Get(profileEndpoint);
         request.SetRequestHeader("Authorization", $"Bearer {jwtToken}");
 
-        yield return request.SendWebRequest();
+        var operation = request.SendWebRequest();
+
+        while (!operation.isDone)
+        {
+            await Task.Yield();
+        }
 
         if (request.result == UnityWebRequest.Result.Success)
         {
@@ -132,12 +141,17 @@ public class LeaderBoard : MonoBehaviour
         }
     }
 
-    private IEnumerator FetchPlayerProfile(string jwtToken)
+    private async Task FetchPlayerProfile(string jwtToken)
     {
         UnityWebRequest profileRequest = UnityWebRequest.Get(profileViewEndpoint);
         profileRequest.SetRequestHeader("Authorization", $"Bearer {jwtToken}");
 
-        yield return profileRequest.SendWebRequest();
+        var operation = profileRequest.SendWebRequest();
+
+        while (!operation.isDone)
+        {
+            await Task.Yield();
+        }
 
         if (profileRequest.result == UnityWebRequest.Result.Success)
         {
@@ -217,6 +231,15 @@ public class LeaderBoard : MonoBehaviour
                 playerRank.Find("Rank Image").Find("Rank").GetComponent<TMP_Text>().text = rank.ToString();
                 entryTransform.Find("Panel").gameObject.SetActive(true);
             }
+        }
+    }
+
+    private void ShowLoadingScreen(bool show)
+    {
+        if (loadingScreen != null)
+        {
+            loadingScreen.SetActive(show);
+            
         }
     }
 
