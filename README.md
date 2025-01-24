@@ -48,3 +48,13 @@ Game story is woven arround a king and his kingdom this is a RPG game and player
   <img src="https://drive.google.com/uc?id=1-ZAdxFBzSxIFVYpC9n_5dmefG-zz178d" alt="Alt text" width="400">
 </div>
 
+### Game Technical Implementation
+
+#### Energy Saving Amount Representation Algorithm.
+
+* Calculate Following Parameters
+    - Parameter 1 = Power Usage of yesterday - Power usage of day before yesterday
+    - Parameter 2 = Recent Week Average power usage - Week before the recent week Average power usage Final Score = (Parameter 1/30) *50 + (Parameter 2/5) *50
+* Current power consumption data
+    - The current power usage which is obtained from the API updated by every 10 seconds, of compared with 3 different threshold values which are set based on data an average play And this generated values is used to decide the life time of the player.
+
