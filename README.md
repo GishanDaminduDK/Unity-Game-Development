@@ -22,7 +22,6 @@ This is a 2d isometric type game that made for promote energy saving among energ
 
 This Quiz is made using React+Vite frontend technology. After redirection from the Unity game first opens up a start page with the instructions that a user should comply with, Once the user proceeds with quiz he can't navigate back since quiz is a sequential at the end of the quiz he/she can review the answers given with correct answers. Finally he/she gifted a right amount of gems proportion to the accurate answers. For each accurate question 10 Gems and maximum of 100 for all correct answers.
 -**Major Used APIs:** :
-
     - Before the Questionnaire
         - POST-http://localhost:8081/api/v1/player/log
         - GET-http://localhost:8081/api/v1/player/answer/{id}
@@ -32,7 +31,10 @@ This Quiz is made using React+Vite frontend technology. After redirection from t
         - GET-http://localhost:8081/api/v1/player/answer/{id}
 
 -**Security System Used:** :
-
     - JWT Authentication:
         -Spring Boot generates JWT for GET requests from the frontend.
         - Ensures secure communication between frontend and backend.
+        
+## Unity Game
+### Game Overview
+Game story is woven arround a king and his kingdom this is a RPG game and player who plays the game will play the role of the king. The king should have to save money to make his kingdom protect from permenant dark lights. He should effectively expend his money to buy resourses like houses, wind malls, bars, life generators and forges which also strengthen the prosperity of the kingdom. Life time generators are essential for keeping the kings life time within the game play. The API data which contains users initial power usage affect to shrinks or expand the trees in the environment to make the user aware of the real time power usage. Considering his mid and long term energy usage there is an algorithm running to offer free golds and gems to the player, if the user waste energy the algorithm works vise-versa and reduce the existing amount of Gold and Gems. The Same algorithm decides the dimmimg of the enviromnet also.
