@@ -14,10 +14,10 @@ This is a 2d isometric type game that made for promote energy saving among energ
 
 ## Quiz Web App
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="https://drive.google.com/uc?id=1Hbc6uWI94baHjARSk_FiNDUvrz3B1WtY" alt="Alt text" width="400">
-  <img src="https://drive.google.com/uc?id=1-ZAdxFBzSxIFVYpC9n_5dmefG-zz178d" alt="Alt text" width="400">
-  <img src="https://drive.google.com/uc?id=1toO5KQ29jI_r5wWKdSk3tRLeieulmraV" alt="Alt text" width="400">
   <img src="https://drive.google.com/uc?id=1W51LEwKUBYpgmqBDI1NgVDs2BsOCWE0e" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1Hbc6uWI94baHjARSk_FiNDUvrz3B1WtY" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1toO5KQ29jI_r5wWKdSk3tRLeieulmraV" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1EwqVZkdTaDy3l4VqktfMRt9b3GgQ5zHQ" alt="Alt text" width="400">
 </div>
 
 This Quiz is made using React+Vite frontend technology. After redirection from the Unity game first opens up a start page with the instructions that a user should comply with, Once the user proceeds with quiz he can't navigate back since quiz is a sequential at the end of the quiz he/she can review the answers given with correct answers. Finally he/she gifted a right amount of gems proportion to the accurate answers. For each accurate question 10 Gems and maximum of 100 for all correct answers.
@@ -42,9 +42,9 @@ This Quiz is made using React+Vite frontend technology. After redirection from t
 Game story is woven arround a king and his kingdom this is a RPG game and player who plays the game will play the role of the king. The king should have to save money to make his kingdom protect from permenant dark lights. He should effectively expend his money to buy resourses like houses, wind malls, bars, life generators and forges which also strengthen the prosperity of the kingdom. Life time generators are essential for keeping the kings life time within the game play. The API data which contains users initial power usage affect to shrinks or expand the trees in the environment to make the user aware of the real time power usage. Considering his mid and long term energy usage there is an algorithm running to offer free golds and gems to the player, if the user waste energy the algorithm works vise-versa and reduce the existing amount of Gold and Gems. The Same algorithm decides the dimmimg of the enviromnet also.
 
 <div style="display: flex; justify-content: space-between; align-items: center;">
-  <img src="https://drive.google.com/uc?id=1tJfbWn5pxsRCRJnijtiFkHCT7bIfU8Ll" alt="Alt text" width="400">
   <img src="https://drive.google.com/uc?id=16lsK7pnL35aMut_tX30zhGl8urGHJsKH" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1tJfbWn5pxsRCRJnijtiFkHCT7bIfU8Ll" alt="Alt text" width="400">
   <img src="https://drive.google.com/uc?id=1kz3BwNwnMXteeAGfq08T64fU4D019zNo" alt="Alt text" width="400">
-  <img src="https://drive.google.com/uc?id=1q7WIFnX-hC56raU5XG0PvjxnqQvpPBcw" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1-ZAdxFBzSxIFVYpC9n_5dmefG-zz178d" alt="Alt text" width="400">
 </div>
 
