@@ -99,3 +99,65 @@ Game story is woven arround a king and his kingdom this is a RPG game and player
  
 ## Spring Boot Backend
 
+This backend application is designed to handle authentication, player session management, and questionnaire functionalities. It validates JWT tokens from other Spring backend microservices and generates new JWT tokens for authorized players. The application supports CRUD operations for players, questionnaire data, and player answers while ensuring seamless integration with a MySQL database. Built with Spring Boot, the backend follows a modular architecture for scalability and maintainability.
+
+## Features
+
+- **JWT Authentication and Authorization**:  
+  Implements JWT-based security to authenticate and authorize players. It includes utilities for generating, validating, and parsing JWT tokens.
+  
+- **Player Management**:  
+  Handles CRUD operations for player entities, including login, registration, and updating player details.
+
+- **Questionnaire Management**:  
+  Manages questionnaire data, including questions and answers, and allows players to submit their responses.
+
+- **Player Session Workflow**:  
+  - If the player has not completed the questionnaire, they are prompted to complete it before proceeding.
+  - If the questionnaire is already completed, the player can directly access the game or review their answers.
+
+- **MySQL Database Integration**:  
+  Stores and retrieves data for players, questionnaire details, player answers, and session statuses.
+
+- **Error Handling**:  
+  Custom exceptions ensure meaningful error messages and proper response codes for invalid requests.
+
+## Package Structure
+
+```plaintext
+config/
+  ├── JwtAuthorizationFilter
+  ├── JwtUtil
+  └── SecurityConfig
+
+controller/
+  ├── PlayerController
+  ├── PlayerLoginController
+  └── Que_Ans_Bank_Controller
+
+dto/
+  ├── ErrorRes
+  ├── LoginReq
+  ├── LoginRes
+  ├── PlayerAnswersDTO
+  ├── PlayerDTO
+  └── ResponseDTO
+
+entity/
+  ├── Player
+  ├── PlayerAnswers
+  ├── que_ans_bank
+  └── Usercredentials
+
+exception/
+  └── UserNotFoundException
+
+repository/
+  ├── PlayerAnswersRepo
+  ├── PlayerRepo
+  └── PlayerRepository
+
+service/
+  └── impl/
+        └── PlayerServiceImpl
+
