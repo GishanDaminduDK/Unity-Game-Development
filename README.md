@@ -40,3 +40,11 @@ This Quiz is made using React+Vite frontend technology. After redirection from t
 ## Unity Game
 ### Game Overview
 Game story is woven arround a king and his kingdom this is a RPG game and player who plays the game will play the role of the king. The king should have to save money to make his kingdom protect from permenant dark lights. He should effectively expend his money to buy resourses like houses, wind malls, bars, life generators and forges which also strengthen the prosperity of the kingdom. Life time generators are essential for keeping the kings life time within the game play. The API data which contains users initial power usage affect to shrinks or expand the trees in the environment to make the user aware of the real time power usage. Considering his mid and long term energy usage there is an algorithm running to offer free golds and gems to the player, if the user waste energy the algorithm works vise-versa and reduce the existing amount of Gold and Gems. The Same algorithm decides the dimmimg of the enviromnet also.
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <img src="https://drive.google.com/uc?id=1tJfbWn5pxsRCRJnijtiFkHCT7bIfU8Ll" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=16lsK7pnL35aMut_tX30zhGl8urGHJsKH" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1kz3BwNwnMXteeAGfq08T64fU4D019zNo" alt="Alt text" width="400">
+  <img src="https://drive.google.com/uc?id=1q7WIFnX-hC56raU5XG0PvjxnqQvpPBcw" alt="Alt text" width="400">
+</div>
+
