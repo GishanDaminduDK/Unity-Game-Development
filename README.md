@@ -12,7 +12,6 @@ This is a 2d isometric type game that made for promote energy saving among energ
 
 
 ## Quiz Web App
-![React](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg =20x20)
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="https://drive.google.com/uc?id=1W51LEwKUBYpgmqBDI1NgVDs2BsOCWE0e" alt="Alt text" width="400">
   <img src="https://drive.google.com/uc?id=1Hbc6uWI94baHjARSk_FiNDUvrz3B1WtY" alt="Alt text" width="400">
@@ -21,3 +20,12 @@ This is a 2d isometric type game that made for promote energy saving among energ
 </div>
 
 This Quiz is made using React+Vite frontend technology. After redirection from the Unity game first opens up a start page with the instructions that a user should comply with, Once the user proceeds with quiz he can't navigate back since quiz is a sequential at the end of the quiz he/she can review the answers given with correct answers. Finally he/she gifted a right amount of gems proportion to the accurate answers. For each accurate question 10 Gems and maximum of 100 for all correct answers.
+-**Major Used APIs:** :
+
+    - Before the Questionnaire
+        - POST-http://localhost:8081/api/v1/player/log
+        - GET-http://localhost:8081/api/v1/player/answer/{id}
+        - GET-http://localhost:8081/api/questions/1
+    - After the Questionnaire
+        - POST-http://localhost:8081/api/v1/player/saveAnswers
+        - GET-http://localhost:8081/api/v1/player/answer/{id}
