@@ -12,6 +12,7 @@ This is a 2d isometric type game that made for promote energy saving among energ
 
 
 ## Quiz Web App
+![React](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg =20x20)
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="https://drive.google.com/uc?id=1W51LEwKUBYpgmqBDI1NgVDs2BsOCWE0e" alt="Alt text" width="400">
   <img src="https://drive.google.com/uc?id=1Hbc6uWI94baHjARSk_FiNDUvrz3B1WtY" alt="Alt text" width="400">
