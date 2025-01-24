@@ -56,7 +56,7 @@ Game story is woven arround a king and his kingdom this is a RPG game and player
 - Up Arrow  ↑ : Move up
 - Down Arrow  ↓ : Move down
 
-#### Scripts and their purpose.
+#### Scripts and Usage.
 
 | C # Script | Purpose | 
 |----------|----------|
