@@ -58,37 +58,36 @@ Game story is woven arround a king and his kingdom this is a RPG game and player
 
 #### Scripts and Usage.
 
-| C # Script | Purpose | 
+| C # Script | Usage | 
 |----------|----------|
 | CameraController | Controlls the main camera to move along with the player and Controlls the side map view camera | 
-| CheckingPlayDirectly | Row 1, Col 2 | 
 | CoinSpawner| Spawn coins Randomly within the game environment |
 | DragDrop | Drag and Drop the Elements in the game environment to organize |
 | EnergySavingAlgorithm | Run the proposed algorithm and send the results to the environment controller |
 | EnvironmentController | Row 1, Col 2 |
 | GameData | Row 1, Col 2 |
-| GemGenerator | Row 1, Col 2 |
-| GotoCastle | Row 1, Col 2 |
-| GotoGarden | Row 1, Col 2 |
-| HealthBar | Row 1, Col 2 |
-| HideColliderColor | Row 1, Col 2 |
-| ItemCollector | Row 1, Col 2 |
-| ItemSpawn | Row 1, Col 2 |
-| PlayerAnimation| Row 1, Col 2 |
-| PlayerMovements | Row 1, Col 2 |
-| PopupMessageUI | Row 1, Col 2 |
-| ShopItem | Row 1, Col 2 |
-| ShopManager | Row 1, Col 2 |
-| ShopTemplate | Row 1, Col 2 |
-| TipsGenerator | Row 1, Col 2 |
-| BackMethod | Row 1, Col 2 |
-| GotoQuetionnaire | Row 1, Col 2 |
-| PostMethod | Row 1, Col 2 |
-| QuitButton | Row 1, Col 2 |
-| reviewQuiz | Row 1, Col 2 |
-| update_one_player | Row 1, Col 2 |
-| view_one_player | Row 1, Col 2 |
-| view_profile | Row 1, Col 2 |
+| GemGenerator | Generate Gems When Needed|
+| GotoCastle | Shift to the Castle While in the Garden |
+| GotoGarden | Shift to the Garden While in the Castle |
+| HealthBar | Shows the Player Health |
+| HideColliderColor | Demolishes the Color of Collider objects used |
+| ItemCollector | Collect and update the count of each hearts, gems and coins cateories |
+| ItemSpawn | Spawn houses and other building within the game environment |
+| PlayerAnimation| Animate the player |
+| PlayerMovements | Controlls the movements of the player |
+| PopupMessageUI | Create a popup message when a message given|
+| ShopItem | Blue Print of a shop object|
+| ShopManager | Keep the Track of the shop items available and manage |
+| ShopTemplate | Visualization of the shop|
+| TipsGenerator | Random tips related to energy saving  |
+| BackMethod | Implementationof the back to the main page |
+| GotoQuetionnaire | Redirect to the quiz if a new player|
+| PostMethod | REST API Post method implementation |
+| QuitButton | Quit the game |
+| reviewQuiz | If the player wants to review the quiz this can redirect the player |
+| update_one_player | Update the player details |
+| view_one_player | View Player Details |
+| view_profile | Player full profile view |
 
 #### Energy Saving Amount Representation Algorithm.
 
