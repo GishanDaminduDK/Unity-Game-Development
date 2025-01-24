@@ -1,2 +1,7 @@
-#2D-Game development using Unity-Development-2024
+# Castle of Light Unity Game Design - Team SkyLine
 
+my-repo/
+│
+├── images/
+│   └── example-image.png
+├── README.md
