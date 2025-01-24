@@ -22,6 +22,7 @@ This is a 2d isometric type game that made for promote energy saving among energ
 
 This Quiz is made using React+Vite frontend technology. After redirection from the Unity game first opens up a start page with the instructions that a user should comply with, Once the user proceeds with quiz he can't navigate back since quiz is a sequential at the end of the quiz he/she can review the answers given with correct answers. Finally he/she gifted a right amount of gems proportion to the accurate answers. For each accurate question 10 Gems and maximum of 100 for all correct answers.
 -**Major Used APIs:** :
+
     - Before the Questionnaire
         - POST-http://localhost:8081/api/v1/player/log
         - GET-http://localhost:8081/api/v1/player/answer/{id}
@@ -31,6 +32,7 @@ This Quiz is made using React+Vite frontend technology. After redirection from t
         - GET-http://localhost:8081/api/v1/player/answer/{id}
 
 -**Security System Used:** :
+
     - JWT Authentication:
         -Spring Boot generates JWT for GET requests from the frontend.
         - Ensures secure communication between frontend and backend.
