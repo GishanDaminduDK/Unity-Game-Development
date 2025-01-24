@@ -49,6 +49,46 @@ Game story is woven arround a king and his kingdom this is a RPG game and player
 </div>
 
 ### Game Technical Implementation
+#### User Contollers
+
+- left arrow  ← : Move left 
+- Right Arrow  → : Move right
+- Up Arrow  ↑ : Move up
+- Down Arrow  ↓ : Move down
+
+#### Scripts and their purpose.
+
+| C # Script | Purpose | 
+|----------|----------|
+| CameraController | Controlls the main camera to move along with the player and Controlls the side map view camera | 
+| CheckingPlayDirectly | Row 1, Col 2 | 
+| CoinSpawner| Spawn coins Randomly within the game environment |
+| DragDrop | Drag and Drop the Elements in the game environment to organize |
+| EnergySavingAlgorithm | Run the proposed algorithm and send the results to the environment controller |
+| EnvironmentController | Row 1, Col 2 |
+| GameData | Row 1, Col 2 |
+| GemGenerator | Row 1, Col 2 |
+| GotoCastle | Row 1, Col 2 |
+| GotoGarden | Row 1, Col 2 |
+| HealthBar | Row 1, Col 2 |
+| HideColliderColor | Row 1, Col 2 |
+| ItemCollector | Row 1, Col 2 |
+| ItemSpawn | Row 1, Col 2 |
+| PlayerAnimation| Row 1, Col 2 |
+| PlayerMovements | Row 1, Col 2 |
+| PopupMessageUI | Row 1, Col 2 |
+| ShopItem | Row 1, Col 2 |
+| ShopManager | Row 1, Col 2 |
+| ShopTemplate | Row 1, Col 2 |
+| TipsGenerator | Row 1, Col 2 |
+| BackMethod | Row 1, Col 2 |
+| GotoQuetionnaire | Row 1, Col 2 |
+| PostMethod | Row 1, Col 2 |
+| QuitButton | Row 1, Col 2 |
+| reviewQuiz | Row 1, Col 2 |
+| update_one_player | Row 1, Col 2 |
+| view_one_player | Row 1, Col 2 |
+| view_profile | Row 1, Col 2 |
 
 #### Energy Saving Amount Representation Algorithm.
 
