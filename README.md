@@ -35,6 +35,3 @@ This Quiz is made using React+Vite frontend technology. After redirection from t
     - JWT Authentication:
         -Spring Boot generates JWT for GET requests from the frontend.
         - Ensures secure communication between frontend and backend.
-
-    - Data Security:
-        - Questionnaire securely stored on the backend.
